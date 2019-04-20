@@ -8,7 +8,7 @@ import de.slag.common.base.BaseException;
 import de.slag.common.base.DatabaseConfig;
 import de.slag.common.base.FileStorageConfig;
 
-public final class SlagConfigSupport {
+public final class SlagConfigSupportUtils {
 
 	private static final String DEFAULT_DATABASE_CONFIG = "DefaultDatabaseConfig";
 
