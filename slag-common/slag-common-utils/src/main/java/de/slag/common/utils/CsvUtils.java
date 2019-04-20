@@ -1,6 +1,5 @@
 package de.slag.common.utils;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,6 +19,8 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import de.slag.common.base.BaseException;
 
 public class CsvUtils {
 
@@ -44,7 +45,7 @@ public class CsvUtils {
 
 	public static void write(Collection<String> header, Collection<Collection<String>> lines, final Path path)
 			throws IOException {
-		
+
 		final BufferedWriter writer = Files.newBufferedWriter(path);
 		final CSVFormat format = CSVFormat.newFormat(DEFAULT_DELIMITER).withHeader(header.toArray(new String[0]))
 				.withRecordSeparator("\r\n");
@@ -72,8 +73,7 @@ public class CsvUtils {
 	public static Collection<CSVRecord> getRecords(final String filename, String... header) throws IOException {
 		final Path path = Paths.get(filename);
 		if (!Files.exists(path)) {
-			LOG.warn(path + " not exists, return default value.");
-			return Collections.emptyList();
+			throw new BaseException("file not exists: " + filename);
 		}
 
 		final BufferedReader in = Files.newBufferedReader(path);
