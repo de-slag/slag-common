@@ -1,8 +1,6 @@
-package de.slag.common.utils;
+package de.slag.common.reflect;
 
 import java.lang.reflect.Field;
-
-import de.slag.common.exception.BaseException;
 
 public class ReflectionUtils {
 
@@ -10,7 +8,7 @@ public class ReflectionUtils {
 		try {
 			return c.getDeclaredField(name);
 		} catch (NoSuchFieldException | SecurityException e) {
-			throw new BaseException(e);
+			throw new ReflectException(e);
 		}
 	}
 

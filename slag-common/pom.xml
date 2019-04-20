@@ -11,5 +11,8 @@
   <packaging>pom</packaging>
   <modules>
   	<module>slag-common-utils</module>
+  	<module>slag-common-logging</module>
+  	<module>slag-common-reflect</module>
+  	<module>slag-common-odf</module>
   </modules>
 </project>
