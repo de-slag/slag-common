@@ -1,4 +1,4 @@
-package de.slag.common.config;
+package de.slag.common.base;
 
 public interface DatasourceConfig extends Comparable<DatasourceConfig> {
 	

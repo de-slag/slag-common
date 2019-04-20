@@ -1,12 +1,12 @@
-package de.slag.common.config;
+package de.slag.common.utils;
 
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
 import de.slag.common.base.BaseException;
-import de.slag.common.utils.PropertyUtils;
-import de.slag.common.utils.SystemUtils;
+import de.slag.common.base.DatabaseConfig;
+import de.slag.common.base.FileStorageConfig;
 
 public final class SlagConfigSupport {
 
