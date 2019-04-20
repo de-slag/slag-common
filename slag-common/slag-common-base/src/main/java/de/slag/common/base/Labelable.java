@@ -1,4 +1,4 @@
-package de.slag.common;
+package de.slag.common.base;
 
 
 public interface Labelable {

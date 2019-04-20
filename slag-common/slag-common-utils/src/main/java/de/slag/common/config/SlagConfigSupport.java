@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
-import de.slag.common.exception.BaseException;
+import de.slag.common.base.BaseException;
 import de.slag.common.utils.PropertyUtils;
 import de.slag.common.utils.SystemUtils;
 

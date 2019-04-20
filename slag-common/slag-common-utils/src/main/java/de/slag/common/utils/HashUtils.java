@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import de.slag.common.exception.BaseException;
+import de.slag.common.base.BaseException;
 
 
 

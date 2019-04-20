@@ -1,4 +1,4 @@
-package de.slag.common.exception;
+package de.slag.common.base;
 
 
 public class BaseException extends RuntimeException {

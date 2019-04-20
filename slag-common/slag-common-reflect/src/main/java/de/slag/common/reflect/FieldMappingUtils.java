@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import de.slag.common.MessageCacheable;
-import de.slag.common.exception.BaseException;
+import de.slag.common.base.BaseException;
+import de.slag.common.base.MessageCacheable;
 
 public class FieldMappingUtils {
 

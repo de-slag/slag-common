@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import de.slag.common.exception.BaseException;
+import de.slag.common.base.BaseException;
 
 public class PropertyUtils {
 

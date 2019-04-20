@@ -4,7 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.util.Date;
 import java.util.Optional;
 
-import de.slag.common.exception.BaseException;
+import de.slag.common.base.BaseException;
 
 public class SystemUtils {
 
