@@ -28,9 +28,14 @@ public class SlagContext {
 			if (alreadyInitialized) {
 				throw new SlagContextException("already initalized");
 			}
-			ctx = new SlagContext();
+
+			LOG.info("create ApplicationContext...");
+			ctx = new SlagContext();			
 			ctx.setContext(new AnnotationConfigApplicationContext());
+			
+			LOG.info("init annotated beans...");
 			ctx.initAnnotatedBeans();
+			LOG.info("init annotated beans...done.");
 
 		}
 	}
