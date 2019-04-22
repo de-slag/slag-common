@@ -96,16 +96,15 @@ public final class SlagConfigSupportUtils {
 		String absolutePath = userHome.getAbsolutePath();
 		String file = "slag.cfg";
 		String cfgFile = absolutePath + "/" + file;
-		
-		if(!new File(cfgFile).exists()) {
+
+		if (!new File(cfgFile).exists()) {
 			try {
 				new File(cfgFile).createNewFile();
 			} catch (IOException e) {
 				throw new BaseException(e);
 			}
 		}
-		
-		
+
 		final Properties properties = new Properties();
 		try (FileInputStream fis = new FileInputStream(cfgFile)) {
 			properties.load(fis);
