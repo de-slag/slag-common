@@ -22,20 +22,29 @@ public final class XmlUtils {
 	}
 
 	public static void out(Object o, Consumer<String> consumer) {
+		consumer.accept(out(o));
+	}
+
+	public static String out(Object o) {
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		marshal(o, o.getClass(), baos);
+		final String string;
 		try {
-			consumer.accept(baos.toString(StandardCharsets.UTF_8.name()));
+			string = baos.toString(StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
+		return string;
 	}
 
 	public static <T> T in(Class<T> type, Supplier<String> supplier) {
-		byte[] buf = supplier.get().getBytes(StandardCharsets.UTF_8);
+		return in(type, supplier.get());
+	}
+
+	public static <T> T in(Class<T> type, final String string) {
+		byte[] buf = string.getBytes(StandardCharsets.UTF_8);
 		ByteArrayInputStream bais = new ByteArrayInputStream(buf);
 		return type.cast(unmarshall(type, bais));
-
 	}
 
 	private static <T> Object unmarshall(Class<T> type, ByteArrayInputStream bais) {

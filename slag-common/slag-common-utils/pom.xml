@@ -15,6 +15,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.slag.common</groupId>
+			<artifactId>slag-common-logging</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.slag.common</groupId>
 			<artifactId>slag-common-base</artifactId>
 			<version>${project.version}</version>
 		</dependency>
