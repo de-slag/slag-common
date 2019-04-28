@@ -1,4 +1,4 @@
-public class XyTest {
+public class XyzTest {
 
 @Test
 public void test() {
