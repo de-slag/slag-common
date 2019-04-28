@@ -1,4 +1,4 @@
-package de.slag.common.db;
+package de.slag.common.db.hibernate;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.boot.model.naming.Identifier;

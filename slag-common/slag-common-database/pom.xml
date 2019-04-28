@@ -14,9 +14,20 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>de.slag.common</groupId>
+			<artifactId>slag-common-base</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+			<dependency>
+			<groupId>de.slag.common</groupId>
+			<artifactId>slag-common-context</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -27,6 +38,10 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 	</dependencies>
 </project>
