@@ -3,6 +3,7 @@ package de.slag.common.utils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -108,5 +109,38 @@ public class CsvUtils {
 			return;
 		}
 		throw new RuntimeException(String.join("\n", s));
+	}
+
+	public static Collection<String> getHeader(String filename) throws FileNotFoundException {
+		final Path path = Paths.get(filename);
+		if (!Files.exists(path)) {
+			throw new FileNotFoundException(filename);
+		}
+		final BufferedReader in;
+		try {
+			in = Files.newBufferedReader(path);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		final CSVFormat format = CSVFormat.newFormat(DEFAULT_DELIMITER);
+		CSVParser parse;
+		try {
+			parse = format.parse(in);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		List<CSVRecord> records;
+		try {
+			records = parse.getRecords();
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		
+		final CSVRecord csvRecord = records.get(0);
+		final Collection<String> header = new ArrayList<String>();
+		csvRecord.forEach(field -> header.add(field));
+		return header;
+		
+		
 	}
 }
