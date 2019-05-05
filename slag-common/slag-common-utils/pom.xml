@@ -14,6 +14,14 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>de.slag.common</groupId>
 			<artifactId>slag-common-logging</artifactId>
 			<version>${project.version}</version>
