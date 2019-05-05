@@ -9,10 +9,14 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.slag.common.base.BaseException;
 
 public class CsvTransformUtils {
+	
+	private static final Log LOG = LogFactory.getLog(CsvTransformUtils.class);
 
 	public static void umformat(String inputFileName, String outputFileName, String column,
 			Function<String, String> umformat) throws FileNotFoundException {
@@ -24,11 +28,12 @@ public class CsvTransformUtils {
 
 		Collection<Collection<String>> lines = new ArrayList<>();
 		for (CSVRecord csvRecord : records) {
-			for (String colum : header) {
-				final List<String> currentLine = new ArrayList<>();
-				final String cellValue = csvRecord.get(colum);
-				if(!colum.equals(column)) {
+			final List<String> currentLine = new ArrayList<>();
+			for (String currentColumn : header) {
+				final String cellValue = csvRecord.get(currentColumn);
+				if(!currentColumn.equals(column)) {
 					currentLine.add(cellValue);
+					continue;
 				}
 				
 				currentLine.add(umformat.apply(cellValue));

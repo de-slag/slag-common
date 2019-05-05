@@ -2,9 +2,13 @@ package de.slag.common.utils.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.function.Function;
 
+import org.apache.commons.csv.CSVRecord;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,7 +28,7 @@ public class CsvTransformUtilsTest {
 	};
 
 	@Test
-	public void transformTest() throws FileNotFoundException {
+	public void transformTest() throws IOException {
 
 		final String tmpFile = JAVA_IO_TEMPDIR + CSV_UTILS_TEST_CSV;
 
@@ -33,7 +37,26 @@ public class CsvTransformUtilsTest {
 			return "transformedValue: " + value;
 		};
 		CsvTransformUtils.umformat(fileFromResources.getAbsolutePath(), tmpFile, "X-AXIS", umformatFunction);
-		Assert.assertTrue("kommt noch Mist bei raus", false);
+		
+		// 
+		
+		final Collection<String> header = CsvUtils.getHeader(tmpFile);
+		Assert.assertTrue(header.size() == 3);
+		Assert.assertTrue(header.contains("X-AXIS"));
+		Assert.assertTrue(header.contains("Y-AXIS"));
+		Assert.assertTrue(header.contains("Z-AXIS"));
+		
+		
+		
+		
+		final Collection<CSVRecord> records = CsvUtils.getRecords(tmpFile, header);
+		Assert.assertThat(records.size(), is(4));
+		Assert.assertTrue("extend this test", false);
+		
+	}
+	
+	private <T> Matcher<T> is(T value) {
+		return Matchers.is(value);
 	}
 
 	private String absolutePathFromResource(String filename) {
