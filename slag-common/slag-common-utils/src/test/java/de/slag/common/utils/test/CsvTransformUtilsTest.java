@@ -3,7 +3,9 @@ package de.slag.common.utils.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 import org.apache.commons.csv.CSVRecord;
@@ -37,24 +39,40 @@ public class CsvTransformUtilsTest {
 			return "transformedValue: " + value;
 		};
 		CsvTransformUtils.umformat(fileFromResources.getAbsolutePath(), tmpFile, "X-AXIS", umformatFunction);
-		
-		// 
-		
+
+		//
+
 		final Collection<String> header = CsvUtils.getHeader(tmpFile);
 		Assert.assertTrue(header.size() == 3);
 		Assert.assertTrue(header.contains("X-AXIS"));
 		Assert.assertTrue(header.contains("Y-AXIS"));
 		Assert.assertTrue(header.contains("Z-AXIS"));
-		
-		
-		
-		
-		final Collection<CSVRecord> records = CsvUtils.getRecords(tmpFile, header);
-		Assert.assertThat(records.size(), is(4));
-		Assert.assertTrue("extend this test", false);
-		
+
+		final List<CSVRecord> recordsList = new ArrayList<>();
+		recordsList.addAll(CsvUtils.getRecords(tmpFile, header));
+		Assert.assertThat(CsvUtils.getRecords(tmpFile, header).size(), is(4));
+
+		final CSVRecord csvRecord0 = recordsList.get(0);
+		Assert.assertThat(csvRecord0.get(0), is("X-AXIS"));
+		Assert.assertThat(csvRecord0.get(1), is("Y-AXIS"));
+		Assert.assertThat(csvRecord0.get(2), is("Z-AXIS"));
+
+		final CSVRecord csvRecord1 = recordsList.get(1);
+		Assert.assertThat(csvRecord1.get(0), is("transformedValue: 11"));
+		Assert.assertThat(csvRecord1.get(1), is("12"));
+		Assert.assertThat(csvRecord1.get(2), is("13"));
+
+		final CSVRecord csvRecord2 = recordsList.get(2);
+		Assert.assertThat(csvRecord2.get(0), is("transformedValue: 14"));
+		Assert.assertThat(csvRecord2.get(1), is("15"));
+		Assert.assertThat(csvRecord2.get(2), is("16"));
+
+		final CSVRecord csvRecord3 = recordsList.get(3);
+		Assert.assertThat(csvRecord3.get(0), is("transformedValue: 17"));
+		Assert.assertThat(csvRecord3.get(1), is("18"));
+		Assert.assertThat(csvRecord3.get(2), is("19"));
 	}
-	
+
 	private <T> Matcher<T> is(T value) {
 		return Matchers.is(value);
 	}
