@@ -18,12 +18,53 @@ public class TableTransformUtilsTest {
 	private List<List<String>> source = source();
 	
 	@Test
+	public void testRemoveColumns() {
+		final List<List<String>> result = TableTransformUtils.removeColumns(source, 0,1);
+		
+				
+		Assert.assertThat(result.get(0).get(0), Matchers.is("C"));				
+		Assert.assertThat(result.get(1).get(0), Matchers.is("3"));				
+		Assert.assertThat(result.get(2).get(0), Matchers.is("4"));				
+		Assert.assertThat(result.get(3).get(0), Matchers.is("5"));
+	}
+
+	@Test
+	public void testRemoveColumnsWithoutHeader() {
+		final List<List<String>> renameHeader = TableTransformUtils.renameHeader(source, "B", null);
+		final List<List<String>> result = TableTransformUtils
+				.removeColumnsWithoutHeader(renameHeader);
+		Assert.assertNotNull(result);
+		Assert.assertThat(result.get(0).size(), Matchers.is(2));
+		
+		Assert.assertThat(result.get(0).get(0), Matchers.is("A"));		
+		Assert.assertThat(result.get(0).get(1), Matchers.is("C"));
+
+		Assert.assertThat(result.get(1).get(0), Matchers.is("1"));		
+		Assert.assertThat(result.get(1).get(1), Matchers.is("3"));
+
+		Assert.assertThat(result.get(2).get(0), Matchers.is("2"));		
+		Assert.assertThat(result.get(2).get(1), Matchers.is("4"));
+
+		Assert.assertThat(result.get(3).get(0), Matchers.is("3"));		
+		Assert.assertThat(result.get(3).get(1), Matchers.is("5"));
+		
+	
+	}
+	
+	@Test
+	public void testRenameHeader_ToNull() {
+		final List<List<String>> result = TableTransformUtils.renameHeader(source, "A", null);
+		Assert.assertNotNull(result);
+		Assert.assertNull(result.get(0).get(0));
+	}
+
+	@Test
 	public void testRenameHeader() {
 		final List<List<String>> result = TableTransformUtils.renameHeader(source, "A", "X");
 		Assert.assertNotNull(result);
 		Assert.assertThat(result.get(0).get(0), Matchers.is("X"));
 	}
-	
+
 	@Test(expected = BaseException.class)
 	public void testRenameHeader_HeaderNotFound() {
 		TableTransformUtils.renameHeader(source, null, "X");
