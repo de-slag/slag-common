@@ -31,7 +31,7 @@ public class CsvTransformUtilsTest {
 	@Test
 	public void transformTest() throws CsvTransformException, IOException {
 
-		final String tmpFile = JAVA_IO_TEMPDIR + CSV_UTILS_TEST_CSV;
+		final String tmpFile = JAVA_IO_TEMPDIR + "/"+ CSV_UTILS_TEST_CSV;
 
 		final File fileFromResources = ResourceUtils.getFileFromResources(CSV_UTILS_TEST_CSV);
 		final Function<String, String> umformatFunction = value -> {
@@ -85,11 +85,6 @@ public class CsvTransformUtilsTest {
 		
 		CsvTransformUtils.umformat(ResourceUtils.getFileFromResources(CSV_UTILS_TEST_CSV).getAbsolutePath(),
 				"COLUMN_NOT_TO_FIND", "NO_MATTER_IN_THIS_TEST", NO_TRANSFORMATION_FUNCTION);
-	}
-
-	@Test
-	public void xTest() throws CsvTransformException {
-		CsvTransformUtils.renameHeader("", "", "", "");
 	}
 	
 	

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.logging.Log;
@@ -71,39 +73,44 @@ public class CsvTransformUtils {
 
 	public static void renameHeader(String inputFileName, String outputFileName, String headerFrom, String headerTo)
 			throws CsvTransformException {
-
-		final Collection<String> header = getHeader(inputFileName);
-
-		if (header.contains(headerTo)) {
-			throw new CsvTransformException("header cannot be renamed. colum already exists: " + headerTo);
-		}
-
-		final List<CSVRecord> records = new ArrayList<>();
+		
+		List<List<String>> list = new ArrayList<>();
+		
+		Collection<String> header;
 		try {
-			records.addAll(CsvUtils.getRecords(inputFileName));
-		} catch (IOException e) {
-			throw new CsvTransformException(e);
-		}
-
-		final Collection<Collection<String>> newContent = new ArrayList<>();
-		CSVRecord csvRecord = records.get(0);
-		final ArrayList<String> newHeadline = new ArrayList<>();
-		for (String oldColumnHead : csvRecord) {
-			if (!oldColumnHead.equals(headerFrom)) {
-				newHeadline.add(oldColumnHead);
-				return;
-			}
-			newHeadline.add(headerTo);
-		}
-		newContent.add(newHeadline);
-
-		for (int line = 1; line < records.size(); line++) {
-			final CSVRecord csvLine = records.get(line);
-			final Collection<String> arrayList = new ArrayList<>();
-			//csvLine.forEach(current);
+			header = CsvUtils.getHeader(inputFileName);
+		} catch (FileNotFoundException e) {
+			throw new BaseException(e);
 		}
 		
-		throw new BaseException("");
+		list.add(new ArrayList<>(header));
+		
+
+		final Collection<CSVRecord> records;
+		try {
+			records = CsvUtils.getRecords(inputFileName);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+
+		records.forEach(record -> {
+			final ArrayList<String> line = new ArrayList<>();
+			record.forEach(column -> line.add(column));
+			list.add(line);
+		});
+
+		List<List<String>> renameHeader = TableTransformUtils.renameHeader(list, headerFrom, headerTo);
+		Collection<Collection<String>> collect = renameHeader.stream().map(line -> {
+			return (Collection<String>) line;
+		}).collect(Collectors.toList());
+
+		try {
+			CsvUtils.write(collect, outputFileName);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+
+		
 
 	}
 

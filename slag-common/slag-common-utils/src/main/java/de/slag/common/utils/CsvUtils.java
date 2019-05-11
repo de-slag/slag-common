@@ -43,6 +43,23 @@ public class CsvUtils {
 			throws IOException {
 		write(header, lines, Paths.get(filename));
 	}
+	
+	public static void write(Collection<Collection<String>> allLines, final String filename)
+			throws IOException {
+		write(allLines, Paths.get(filename));
+		
+	}
+	
+	public static void write(Collection<Collection<String>> allLines, final Path path)
+			throws IOException {
+		List<Collection<String>> asList = new ArrayList<>(allLines);
+		Collection<String> header = asList.get(0);
+		asList.remove(0);
+		ArrayList<Collection<String>> otherLines = new ArrayList<Collection<String>>(asList);
+		
+		write(header, otherLines, path);
+		
+	}
 
 	public static void write(Collection<String> header, Collection<Collection<String>> lines, final Path path)
 			throws IOException {
