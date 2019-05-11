@@ -139,12 +139,4 @@ public class TableTransformUtilsTest {
 		return source;
 	}
 
-	private void out(List<List<String>> out) {
-		out.forEach(line -> {
-			line.forEach(cell -> System.out.print(cell));
-			System.out.println();
-		});
-
-	}
-
 }
