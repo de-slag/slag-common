@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -71,20 +72,54 @@ public class CsvTransformUtils {
 		return records;
 	}
 
+	public static void removeColumns(String inputFileName, String outputFileName, String... columns) {
+		write(outputFileName, TableTransformUtils.removeColumns(getAsTable(inputFileName), columns));
+	}
+	
+	public static void removeEmptyLines(String inputFileName, String outputFileName) {
+		List<List<String>> asTable = getAsTable(inputFileName);
+		List<List<String>> removeEmptyLines = TableTransformUtils.removeEmptyLines(asTable);
+		write(outputFileName, removeEmptyLines);
+	}
+
+	public static void addColumn(String inputFileName, String outputFileName, String columnName, String fixValue) {
+		List<List<String>> addColumn = TableTransformUtils.addColumn(getAsTable(inputFileName), columnName, fixValue);
+		write(outputFileName, addColumn);
+	}
+
 	public static void renameHeader(String inputFileName, String outputFileName, String headerFrom, String headerTo)
 			throws CsvTransformException {
-		
+
+		List<List<String>> list = getAsTable(inputFileName);
+
+		List<List<String>> renameHeader = TableTransformUtils.renameHeader(list, headerFrom, headerTo);
+		write(outputFileName, renameHeader);
+
+	}
+
+	private static void write(String outputFileName, List<List<String>> renameHeader) {
+		Collection<Collection<String>> collect = renameHeader.stream().map(line -> {
+			return (Collection<String>) line;
+		}).collect(Collectors.toList());
+
+		try {
+			CsvUtils.write(collect, outputFileName);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+	}
+
+	private static List<List<String>> getAsTable(String inputFileName) {
 		List<List<String>> list = new ArrayList<>();
-		
+
 		Collection<String> header;
 		try {
 			header = CsvUtils.getHeader(inputFileName);
 		} catch (FileNotFoundException e) {
 			throw new BaseException(e);
 		}
-		
+
 		list.add(new ArrayList<>(header));
-		
 
 		final Collection<CSVRecord> records;
 		try {
@@ -98,20 +133,7 @@ public class CsvTransformUtils {
 			record.forEach(column -> line.add(column));
 			list.add(line);
 		});
-
-		List<List<String>> renameHeader = TableTransformUtils.renameHeader(list, headerFrom, headerTo);
-		Collection<Collection<String>> collect = renameHeader.stream().map(line -> {
-			return (Collection<String>) line;
-		}).collect(Collectors.toList());
-
-		try {
-			CsvUtils.write(collect, outputFileName);
-		} catch (IOException e) {
-			throw new BaseException(e);
-		}
-
-		
-
+		return list;
 	}
 
 	private static Collection<String> getHeader(String inputFileName) throws CsvTransformException {
