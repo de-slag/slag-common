@@ -1,8 +1,8 @@
 package de.slag.common.utils;
 
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -31,19 +31,22 @@ public class ConsoleUtils {
 			LOG.debug("process alive, sleep.");
 			SleepUtils.sleepFor(50);
 		}
+		final String readInput = readInput(exec.getInputStream());
 
 		final String error = readInput(exec.getErrorStream());
-		if(StringUtils.isNotBlank(error)) {
+		
+		exec.destroy();
+		final int exitValue = exec.exitValue();
+		if(exitValue != 0) {
 			throw new IOException(error);
 		}
-		return readInput(exec.getInputStream());
-	}	
-	
+		return error;
+	}
 
-	private static String readInput(final InputStream errorStream) throws IOException {
+	private static String readInput(final InputStream is) throws IOException {
 		final StringBuilder errorBuffer = new StringBuilder();
 		while (true) {
-			final int read = errorStream.read();
+			final int read = is.read();
 			if (read == -1) {
 				break;
 			}
