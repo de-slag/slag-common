@@ -16,5 +16,6 @@
   	<module>slag-common-odf</module>
   	<module>slag-common-base</module>
   	<module>slag-common-context</module>
+  	<module>slag-common-database</module>
   </modules>
 </project>

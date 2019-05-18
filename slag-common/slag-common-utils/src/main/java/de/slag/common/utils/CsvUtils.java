@@ -3,13 +3,13 @@ package de.slag.common.utils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +41,23 @@ public class CsvUtils {
 	public static void write(final String filename, Collection<String> header, Collection<Collection<String>> lines)
 			throws IOException {
 		write(header, lines, Paths.get(filename));
+	}
+	
+	public static void write(Collection<Collection<String>> allLines, final String filename)
+			throws IOException {
+		write(allLines, Paths.get(filename));
+		
+	}
+	
+	public static void write(Collection<Collection<String>> allLines, final Path path)
+			throws IOException {
+		List<Collection<String>> asList = new ArrayList<>(allLines);
+		Collection<String> header = asList.get(0);
+		asList.remove(0);
+		ArrayList<Collection<String>> otherLines = new ArrayList<Collection<String>>(asList);
+		
+		write(header, otherLines, path);
+		
 	}
 
 	public static void write(Collection<String> header, Collection<Collection<String>> lines, final Path path)
@@ -108,5 +125,38 @@ public class CsvUtils {
 			return;
 		}
 		throw new RuntimeException(String.join("\n", s));
+	}
+
+	public static Collection<String> getHeader(String filename) throws FileNotFoundException {
+		final Path path = Paths.get(filename);
+		if (!Files.exists(path)) {
+			throw new FileNotFoundException(filename);
+		}
+		final BufferedReader in;
+		try {
+			in = Files.newBufferedReader(path);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		final CSVFormat format = CSVFormat.newFormat(DEFAULT_DELIMITER);
+		CSVParser parse;
+		try {
+			parse = format.parse(in);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		List<CSVRecord> records;
+		try {
+			records = parse.getRecords();
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		
+		final CSVRecord csvRecord = records.get(0);
+		final Collection<String> header = new ArrayList<String>();
+		csvRecord.forEach(field -> header.add(field));
+		return header;
+		
+		
 	}
 }
