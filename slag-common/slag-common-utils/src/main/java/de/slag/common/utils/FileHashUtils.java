@@ -14,6 +14,12 @@ public class FileHashUtils {
 	public static String md5(String absoluteFileName) {
 		return checksum(absoluteFileName, getMessageDigest("md5"));
 	}
+	
+	public static String sha256(String absoluteFileName) {
+		
+		return checksum(absoluteFileName, getMessageDigest("SHA-256"));
+			
+	}
 
 	private static String checksum(String absoluteFileName, final MessageDigest md5) {
 		final String requireNonNull = Objects.requireNonNull(absoluteFileName, "filename is null");
