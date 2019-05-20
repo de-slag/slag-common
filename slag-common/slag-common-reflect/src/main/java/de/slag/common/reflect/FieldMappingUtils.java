@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import de.slag.common.base.BaseException;
 import de.slag.common.base.MessageCacheable;
 
+
 public class FieldMappingUtils {
 
 	private static final Log LOG = LogFactory.getLog(FieldMappingUtils.class);
