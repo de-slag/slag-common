@@ -12,6 +12,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,6 +37,11 @@ public class CsvTransformUtils {
 
 		Collection<Collection<String>> lines = new ArrayList<>();
 		for (CSVRecord csvRecord : records) {
+			if(csvRecord.size() == 1) {
+				if(StringUtils.isEmpty(csvRecord.get(0))) {
+					continue;					
+				}
+			}
 			final List<String> currentLine = new ArrayList<>();
 			for (String currentColumn : header) {
 				final String cellValue = csvRecord.get(currentColumn);
