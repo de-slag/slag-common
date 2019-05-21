@@ -37,9 +37,9 @@ public class CsvTransformUtils {
 
 		Collection<Collection<String>> lines = new ArrayList<>();
 		for (CSVRecord csvRecord : records) {
-			if(csvRecord.size() == 1) {
-				if(StringUtils.isEmpty(csvRecord.get(0))) {
-					continue;					
+			if (csvRecord.size() == 1) {
+				if (StringUtils.isEmpty(csvRecord.get(0))) {
+					continue;
 				}
 			}
 			final List<String> currentLine = new ArrayList<>();
@@ -81,7 +81,7 @@ public class CsvTransformUtils {
 	public static void removeColumns(String inputFileName, String outputFileName, String... columns) {
 		write(outputFileName, TableTransformUtils.removeColumns(getAsTable(inputFileName), columns));
 	}
-	
+
 	public static void removeEmptyLines(String inputFileName, String outputFileName) {
 		List<List<String>> asTable = getAsTable(inputFileName);
 		List<List<String>> removeEmptyLines = TableTransformUtils.removeEmptyLines(asTable);
@@ -104,9 +104,11 @@ public class CsvTransformUtils {
 	}
 
 	private static void write(String outputFileName, List<List<String>> renameHeader) {
-		Collection<Collection<String>> collect = renameHeader.stream().map(line -> {
-			return (Collection<String>) line;
-		}).collect(Collectors.toList());
+		Collection<Collection<String>> collect = renameHeader.stream()
+				.map(line -> {
+					return (Collection<String>) line;
+				})
+				.collect(Collectors.toList());
 
 		try {
 			CsvUtils.write(collect, outputFileName);
@@ -116,7 +118,6 @@ public class CsvTransformUtils {
 	}
 
 	private static List<List<String>> getAsTable(String inputFileName) {
-		List<List<String>> list = new ArrayList<>();
 
 		Collection<String> header;
 		try {
@@ -125,14 +126,19 @@ public class CsvTransformUtils {
 			throw new BaseException(e);
 		}
 
-		list.add(new ArrayList<>(header));
-
 		final Collection<CSVRecord> records;
 		try {
 			records = CsvUtils.getRecords(inputFileName);
 		} catch (IOException e) {
 			throw new BaseException(e);
 		}
+
+		return asTable(header, records);
+	}
+
+	public static List<List<String>> asTable(Collection<String> header, final Collection<CSVRecord> records) {
+		final List<List<String>> list = new ArrayList<>();
+		list.add(new ArrayList<>(header));
 
 		records.forEach(record -> {
 			final ArrayList<String> line = new ArrayList<>();
