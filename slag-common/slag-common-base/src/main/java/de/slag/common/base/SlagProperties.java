@@ -5,14 +5,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class SlagConfig {
-	
+public final class SlagProperties {
+
 	public static Properties getConfigProperties() {
 		final File userHome = org.apache.commons.lang3.SystemUtils.getUserHome();
 		String absolutePath = userHome.getAbsolutePath();
 		String file = "slag.cfg";
 		String cfgFile = absolutePath + "/" + file;
-
+	
 		if (!new File(cfgFile).exists()) {
 			try {
 				new File(cfgFile).createNewFile();
@@ -20,7 +20,7 @@ public class SlagConfig {
 				throw new BaseException(e);
 			}
 		}
-
+	
 		final Properties properties = new Properties();
 		try (FileInputStream fis = new FileInputStream(cfgFile)) {
 			properties.load(fis);

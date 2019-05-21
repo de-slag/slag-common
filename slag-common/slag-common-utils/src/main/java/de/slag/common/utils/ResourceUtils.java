@@ -1,6 +1,8 @@
 package de.slag.common.utils;
 
 import java.io.File;
+import java.net.URL;
+import java.util.Objects;
 
 public final class ResourceUtils {
 
@@ -9,7 +11,8 @@ public final class ResourceUtils {
 	}
 
 	public static File getFileFromResources(String filename) {
-		return new File(new ResourceUtils().getClass().getClassLoader().getResource(filename).getFile());
+		final URL resource = new ResourceUtils().getClass().getClassLoader().getResource(filename);
+		return new File(Objects.requireNonNull(resource, "Resource not found: " +  filename).getFile());
 	}
 
 }

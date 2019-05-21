@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import de.slag.common.base.SlagConfig;
+import de.slag.common.base.SlagProperties;
 import de.slag.common.context.SubClassesUtils;
 import de.slag.common.db.EntityBean;
 
@@ -30,7 +30,7 @@ public class AbstractHibernateServiceImpl implements HibernateService, Closeable
 	}
 
 	protected Properties getProperties() {
-		return SlagConfig.getConfigProperties();
+		return SlagProperties.getConfigProperties();
 	}
 	
 	@Override
