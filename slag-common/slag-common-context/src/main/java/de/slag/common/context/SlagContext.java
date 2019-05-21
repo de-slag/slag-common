@@ -49,7 +49,7 @@ public class SlagContext {
 	private void registerBeans(Collection<BeanDefinition> definitions) {
 		definitions.forEach(def -> {
 			final String beanClassName = def.getBeanClassName();
-			LOG.debug("register bean: " + beanClassName);
+			LOG.info("register bean: " + beanClassName);
 			appCtx.registerBeanDefinition(beanClassName, def);
 		});
 	}

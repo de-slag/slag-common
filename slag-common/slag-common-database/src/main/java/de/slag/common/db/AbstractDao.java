@@ -24,7 +24,5 @@ public abstract class AbstractDao<T> implements Dao<T> {
 	@Override
 	public Collection<Long> findAllIds() {
 		return hibernateService.findAllIds(getPersistentType());
-	}
-	
-	
+	}	
 }
