@@ -25,11 +25,9 @@ public class CsvTransformUtils {
 	public static void umformat(String inputFileName, String outputFileName, String column,
 			Function<String, String> umformat) throws CsvTransformException {
 		Collection<String> header;
-		try {
+		
 			header = CsvUtils.getHeader(inputFileName);
-		} catch (FileNotFoundException e) {
-			throw new CsvTransformException(e);
-		}
+		
 		if (!header.contains(column)) {
 			throw new CsvTransformException("column not found in header: " + column + "(" + header + ")");
 		}
@@ -70,11 +68,9 @@ public class CsvTransformUtils {
 
 	private static Collection<CSVRecord> getRecords(String inputFileName) throws CsvTransformException {
 		Collection<CSVRecord> records;
-		try {
+		
 			records = CsvUtils.getRecords(inputFileName);
-		} catch (IOException e) {
-			throw new CsvTransformException(e);
-		}
+		
 		return records;
 	}
 
@@ -120,18 +116,14 @@ public class CsvTransformUtils {
 	private static List<List<String>> getAsTable(String inputFileName) {
 
 		Collection<String> header;
-		try {
+		
 			header = CsvUtils.getHeader(inputFileName);
-		} catch (FileNotFoundException e) {
-			throw new BaseException(e);
-		}
+		
 
 		final Collection<CSVRecord> records;
-		try {
+		
 			records = CsvUtils.getRecords(inputFileName);
-		} catch (IOException e) {
-			throw new BaseException(e);
-		}
+		
 
 		return asTable(header, records);
 	}
@@ -149,11 +141,9 @@ public class CsvTransformUtils {
 	}
 
 	private static Collection<String> getHeader(String inputFileName) throws CsvTransformException {
-		try {
+		
 			return CsvUtils.getHeader(inputFileName);
-		} catch (FileNotFoundException e) {
-			throw new CsvTransformException(e);
-		}
+		
 	}
 
 	public static class CsvTransformException extends Exception {

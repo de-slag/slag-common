@@ -57,7 +57,6 @@ public class CsvUtils {
 		ArrayList<Collection<String>> otherLines = new ArrayList<Collection<String>>(asList);
 		
 		write(header, otherLines, path);
-		
 	}
 
 	public static void write(Collection<String> header, Collection<Collection<String>> lines, final Path path)
@@ -83,17 +82,22 @@ public class CsvUtils {
 	 * ...first record as header
 	 */
 
-	public static Collection<CSVRecord> getRecords(final String filename) throws IOException {
+	public static Collection<CSVRecord> getRecords(final String filename) {
 		return getRecords(filename, new String[0]);
 	}
 
-	public static Collection<CSVRecord> getRecords(final String filename, String... header) throws IOException {
+	public static Collection<CSVRecord> getRecords(final String filename, String... header) {
 		final Path path = Paths.get(filename);
 		if (!Files.exists(path)) {
 			throw new BaseException("file not exists: " + filename);
 		}
 
-		final BufferedReader in = Files.newBufferedReader(path);
+		BufferedReader in;
+		try {
+			in = Files.newBufferedReader(path);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
 		final CSVFormat format;
 		if (header != null && header.length > 0) {
 			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withHeader(header);
@@ -101,8 +105,18 @@ public class CsvUtils {
 			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim();
 		}
 
-		final CSVParser parse = format.parse(in);
-		final List<CSVRecord> records = parse.getRecords();
+		CSVParser parse;
+		try {
+			parse = format.parse(in);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		List<CSVRecord> records;
+		try {
+			records = parse.getRecords();
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
 		validate(records, header);
 		return records;
 	}
@@ -127,10 +141,10 @@ public class CsvUtils {
 		throw new RuntimeException(String.join("\n", s));
 	}
 
-	public static Collection<String> getHeader(String filename) throws FileNotFoundException {
+	public static Collection<String> getHeader(String filename) {
 		final Path path = Paths.get(filename);
 		if (!Files.exists(path)) {
-			throw new FileNotFoundException(filename);
+			throw new BaseException(new FileNotFoundException(filename));
 		}
 		final BufferedReader in;
 		try {
