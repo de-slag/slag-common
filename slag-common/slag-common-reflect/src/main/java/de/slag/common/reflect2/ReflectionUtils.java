@@ -1,5 +1,6 @@
 package de.slag.common.reflect2;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +11,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+
+import de.slag.common.base.BaseException;
 
 public class ReflectionUtils {
 
@@ -124,6 +127,7 @@ public class ReflectionUtils {
 
 	/**
 	 * ...without Object.class.
+	 * 
 	 * @param class1
 	 * @return
 	 */
@@ -138,6 +142,22 @@ public class ReflectionUtils {
 			result.addAll(determineClasses(superclass));
 		}
 		return result;
+	}
+
+	public static void invokeSetter(Method method, Object object, Object value) {
+		try {
+			method.invoke(object, value);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			throw new BaseException(e);
+		}
+	}
+
+	public static Object invokeGetter(Method method, Object object) {
+		try {
+			return method.invoke(object);
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			throw new BaseException(e);
+		}
 	}
 
 }
