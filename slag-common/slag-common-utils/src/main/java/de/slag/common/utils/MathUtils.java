@@ -22,7 +22,10 @@ public class MathUtils {
 
 	public static BigDecimal divide(BigDecimal value, int divisor) {
 		return value.divide(BigDecimal.valueOf(divisor), DEFAULT_MATH_CONTEXT);
-
+	}
+	
+	public static BigDecimal average(Collection<BigDecimal> values) {
+		return divide(addAll(values), values.size());
 	}
 
 }

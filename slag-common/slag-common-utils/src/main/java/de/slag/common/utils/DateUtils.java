@@ -41,6 +41,10 @@ public class DateUtils {
 		}
 		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 	}
+	
+	public static LocalDate getEasterSunday(int year) {
+		return getEasterSunday(Year.of(year));
+	}
 
 	public static LocalDate getEasterSunday(Year year) {
 		final int y = year.getValue();
