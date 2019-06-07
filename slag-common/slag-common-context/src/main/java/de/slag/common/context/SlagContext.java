@@ -23,15 +23,21 @@ public class SlagContext {
 	private Properties contextProperties = new Properties();
 
 	private AnnotationConfigApplicationContext appCtx;
+	
+	private static AnnotationConfigApplicationContext appCtx2;
 
-	public static void init() {
+	public static void init() {		
 		synchronized (SlagContext.class) {
 			final boolean alreadyInitialized = ctx != null;
 			if (alreadyInitialized) {
 				throw new SlagContextException("already initalized");
 			}
-
 			LOG.info("create ApplicationContext...");
+			
+			appCtx2 = new AnnotationConfigApplicationContext(SlagConfig.class);
+			
+			
+
 			ctx = new SlagContext();			
 			ctx.setContext(new AnnotationConfigApplicationContext());
 			
@@ -78,7 +84,7 @@ public class SlagContext {
 	}
 
 	public static <T> T getBean(Class<T> c) {
-		return getContext().getBeanFactory().getBean(c);
+		return appCtx2.getBeanFactory().getBean(c);
 	}
 	
 	private Properties getContextProperties() {
