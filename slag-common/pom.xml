@@ -19,5 +19,6 @@
 		<module>slag-common-base</module>
 		<module>slag-common-context</module>
 		<module>slag-common-database</module>
+		<module>slag-common-app</module>
 	</modules>
 </project>
