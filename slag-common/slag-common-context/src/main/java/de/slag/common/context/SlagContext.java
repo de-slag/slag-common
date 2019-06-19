@@ -25,6 +25,10 @@ public class SlagContext {
 	private AnnotationConfigApplicationContext appCtx;
 	
 	private static AnnotationConfigApplicationContext appCtx2;
+	
+	static {
+		init();
+	}
 
 	public static void init() {		
 		synchronized (SlagContext.class) {
