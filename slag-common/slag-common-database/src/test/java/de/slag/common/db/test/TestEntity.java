@@ -2,7 +2,7 @@ package de.slag.common.db.test;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 
-import de.slag.common.db.EntityBean;
+import de.slag.common.model.EntityBean;
 
 
 

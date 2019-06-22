@@ -1,7 +1,6 @@
-package de.slag.common.db;
+package de.slag.common.model;
 
 import java.util.Random;
-import java.util.UUID;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;

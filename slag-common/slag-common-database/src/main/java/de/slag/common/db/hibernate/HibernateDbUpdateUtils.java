@@ -9,7 +9,7 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 
 import de.slag.common.context.SubClassesUtils;
-import de.slag.common.db.EntityBean;
+import de.slag.common.model.EntityBean;
 
 public class HibernateDbUpdateUtils {
 

@@ -14,7 +14,7 @@ import org.hibernate.query.Query;
 
 import de.slag.common.base.SlagProperties;
 import de.slag.common.context.SubClassesUtils;
-import de.slag.common.db.EntityBean;
+import de.slag.common.model.EntityBean;
 
 public class AbstractHibernateServiceImpl implements HibernateService, Closeable {
 
