@@ -1,7 +1,8 @@
-package de.slag.common.db;
+package de.slag.common;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public interface Dao<T> {
 	

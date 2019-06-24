@@ -14,6 +14,7 @@ import org.hibernate.query.Query;
 
 import de.slag.common.base.SlagProperties;
 import de.slag.common.context.SubClassesUtils;
+import de.slag.common.db.h2.InMemoryProperties;
 import de.slag.common.model.EntityBean;
 
 public class AbstractHibernateServiceImpl implements HibernateService, Closeable {
@@ -72,6 +73,11 @@ public class AbstractHibernateServiceImpl implements HibernateService, Closeable
 	@Override
 	public void close() throws IOException {
 		sessionFactory.close();
+	}
+
+	@Override
+	public Properties getDbProperties() {
+		return getProperties();
 	}
 
 }

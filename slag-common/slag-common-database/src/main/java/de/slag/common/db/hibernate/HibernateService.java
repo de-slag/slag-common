@@ -5,9 +5,7 @@ import java.util.Optional;
 
 import org.hibernate.SessionFactory;
 
-public interface HibernateService {
-	
-	SessionFactory getSessionFactory();
+public interface HibernateService extends HibernateResource {
 
 	void save(Object o);
 

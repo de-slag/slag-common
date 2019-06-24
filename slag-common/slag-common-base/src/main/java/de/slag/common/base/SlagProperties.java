@@ -29,5 +29,8 @@ public final class SlagProperties {
 		}
 		return properties;
 	}
-
+	
+	public static String get(String propertyKey) {
+		return getConfigProperties().getProperty(propertyKey);
+	}
 }
