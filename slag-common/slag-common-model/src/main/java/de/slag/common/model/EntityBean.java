@@ -9,7 +9,9 @@ import javax.persistence.MappedSuperclass;
 public abstract class EntityBean {
 	
 	@Id
-	protected Long id = new Random().nextLong();
+	private Long id = new Random().nextLong();
+	
+	
 
 	public Long getId() {
 		return id;
