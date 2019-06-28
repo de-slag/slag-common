@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
@@ -15,7 +14,7 @@ public class SessionFactoryUtils {
 	public static SessionFactory createSessionFactory(Properties properties, Collection<Class<?>> registerClasses) {	
 		final Configuration configuration = new Configuration();
 		configuration.addProperties(properties);
-		configuration.setProperty(AvailableSettings.SHOW_SQL, "true");
+		//configuration.setProperty(AvailableSettings.SHOW_SQL, "true");
 		configuration.setPhysicalNamingStrategy(new DefaultNamingStrategy());
 		
 		registerClasses.forEach(cls -> configuration.addAnnotatedClass(cls));
