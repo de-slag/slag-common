@@ -41,6 +41,7 @@ public class XiData extends EntityBean {
 			final String value = split[1];
 			properties.setProperty(key, value);
 		});
+		return properties;
 	}
 
 	@Override
