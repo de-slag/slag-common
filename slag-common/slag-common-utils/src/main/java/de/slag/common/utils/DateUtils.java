@@ -8,6 +8,8 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class DateUtils {
 
 	public static Calendar toCalendar(LocalDate ld) {
@@ -63,6 +65,18 @@ public class DateUtils {
 		final int month = (h + m - 7 * n + 114) / 31;
 		final int day = (((h + m - (7 * n) + 114) % 31) + 1);
 		return LocalDate.of(y, month, day);
+	}
+	
+	public static String millisecondsToHumanReadable(long millis) {
+		long seconds = millis / 1000;
+		long minutes = seconds / 60;
+		long hours = minutes / 60;
+		long days = hours / 24;
+		
+		long restMillis = millis - seconds * 1000;
+		
+		
+		return days + ":" + hours % 24 + ":" + minutes % 60 + ":" + seconds % 60 + "." + restMillis; 
 	}
 
 }
