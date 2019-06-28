@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
@@ -27,6 +28,10 @@ public class CsvUtils {
 	private static final Log LOG = LogFactory.getLog(CsvUtils.class);
 
 	private static final char DEFAULT_DELIMITER = ';';
+	
+	public static final Predicate<CSVRecord> FILTER_NO_EMPTY = rec -> {
+		return rec.isConsistent();
+	};
 
 	public static Collection<Collection<String>> toLines(Collection<String> header, Collection<CSVRecord> records) {
 		return records.stream().map(r -> header.stream().map(h -> r.get(h)).collect(Collectors.toList()))
