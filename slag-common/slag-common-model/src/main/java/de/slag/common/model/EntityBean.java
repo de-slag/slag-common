@@ -1,7 +1,5 @@
 package de.slag.common.model;
 
-import java.util.Random;
-
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -9,12 +7,18 @@ import javax.persistence.MappedSuperclass;
 public abstract class EntityBean {
 	
 	@Id
-	private Long id = new Random().nextLong();
+	private Long id;
 	
 	
 
 	public Long getId() {
 		return id;
 	}
+	
+	void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 
 }

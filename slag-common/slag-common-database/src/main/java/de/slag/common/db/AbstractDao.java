@@ -15,6 +15,8 @@ import org.hibernate.query.Query;
 
 import de.slag.common.Dao;
 import de.slag.common.db.hibernate.HibernateResource;
+import de.slag.common.model.EntityBean;
+import de.slag.common.model.HackyIdAllocator;
 
 public abstract class AbstractDao<T> implements Dao<T> {
 
@@ -26,6 +28,15 @@ public abstract class AbstractDao<T> implements Dao<T> {
 	protected abstract Class<T> getPersistentType();
 
 	public void save(T t) {
+
+		// TODO hacky
+		if (t instanceof EntityBean) {
+			final EntityBean eb = (EntityBean) t;
+			if (eb.getId() == null) {
+				HackyIdAllocator.allocateId(eb);
+			}
+		}
+
 		final Supplier<Session> sessionSupplier = hibernateResource.getSessionSupplier();
 
 		try (final Session s = sessionSupplier.get()) {
