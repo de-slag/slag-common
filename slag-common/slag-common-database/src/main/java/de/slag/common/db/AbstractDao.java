@@ -14,8 +14,10 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import de.slag.common.Dao;
+import de.slag.common.base.BaseException;
 import de.slag.common.db.hibernate.HibernateResource;
 import de.slag.common.model.EntityBean;
+import de.slag.common.model.EntityBeanUtils;
 import de.slag.common.model.HackyIdAllocator;
 
 public abstract class AbstractDao<T> implements Dao<T> {
@@ -26,16 +28,25 @@ public abstract class AbstractDao<T> implements Dao<T> {
 	private HibernateResource hibernateResource;
 
 	protected abstract Class<T> getPersistentType();
+	
+	public void remove(T t) {
+		if(!(t instanceof EntityBean)) {
+			throw new BaseException("cannot remove non-EntityBeans");
+		}
+		final EntityBean bean = (EntityBean) t;
+		EntityBeanUtils.setDelete(bean);
+		save(t);
+	}
 
 	public void save(T t) {
 
 		// TODO hacky
-		if (t instanceof EntityBean) {
-			final EntityBean eb = (EntityBean) t;
-			if (eb.getId() == null) {
-				HackyIdAllocator.allocateId(eb);
-			}
-		}
+//		if (t instanceof EntityBean) {
+//			final EntityBean eb = (EntityBean) t;
+//			if (eb.getId() == null) {
+//				HackyIdAllocator.allocateId(eb);
+//			}
+//		}
 
 		final Supplier<Session> sessionSupplier = hibernateResource.getSessionSupplier();
 
