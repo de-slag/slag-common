@@ -1,18 +1,17 @@
 package de.slag.common.context;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import de.slag.common.base.BaseException;
 
 public class SlagContext {
 
@@ -30,19 +29,25 @@ public class SlagContext {
 		LOG.info("init context...");
 		init();
 	}
+	
+	public static boolean isInitialized() {
+		return appCtx2 != null;
+	}
 
 	public static void init() {
 		synchronized (SlagContext.class) {
-			final boolean alreadyInitialized = ctx != null;
-			if (alreadyInitialized) {
-				throw new SlagContextException("already initalized");
+			if (isInitialized()) {
+				LOG.error("already initalized");
+				return;
 			}
 			LOG.info("create ApplicationContext...");
 
 			appCtx2 = new AnnotationConfigApplicationContext(SlagConfig.class);
+			String[] beanDefinitionNames = appCtx2.getBeanDefinitionNames();
+			LOG.info(beanDefinitionNames);
 
-			//ctx = new SlagContext();
-			//ctx.setContext(new AnnotationConfigApplicationContext());
+			// ctx = new SlagContext();
+			// ctx.setContext(new AnnotationConfigApplicationContext());
 
 //			LOG.info("init annotated beans...");
 //			ctx.initAnnotatedBeans();
@@ -77,10 +82,11 @@ public class SlagContext {
 //			LOG.info("register: " + beanClassName);
 //			appCtx.registerBeanDefinition(beanClassName, beanDefinition);
 //		}
-	}
+	}	
 
-	public static ConfigurableApplicationContext getContext() {
-		return ctx.appCtx;
+	public static <T> T getBean(Class<T> c, String name) {
+		Object bean = appCtx2.getBean(name);
+		return c.cast(Optional.of(bean).orElseThrow(() -> new BaseException("no bean with name" + name)));
 	}
 
 	public static <T> T getBean(Class<T> c) {
