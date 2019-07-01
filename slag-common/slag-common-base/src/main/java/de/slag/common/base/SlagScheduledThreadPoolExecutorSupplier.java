@@ -1,8 +1,16 @@
 package de.slag.common.base;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 import java.util.function.Supplier;
 
+/**
+ * 
+ * use java.util.concurrent.Executors instead
+ *
+ */
+@Deprecated
 public class SlagScheduledThreadPoolExecutorSupplier implements Supplier<ScheduledThreadPoolExecutor> {
 
 	@Override
