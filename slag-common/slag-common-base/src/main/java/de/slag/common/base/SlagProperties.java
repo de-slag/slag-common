@@ -5,10 +5,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.lang3.SystemUtils;
+
 public final class SlagProperties {
 
 	public static Properties getConfigProperties() {
-		final File userHome = org.apache.commons.lang3.SystemUtils.getUserHome();
+		final File userHome = SystemUtils.getUserHome();
 		String absolutePath = userHome.getAbsolutePath();
 		String file = "slag.cfg";
 		String cfgFile = absolutePath + "/" + file;

@@ -8,50 +8,46 @@ import javax.persistence.Enumerated;
 import de.slag.common.model.EntityBean;
 
 @Entity
-public class SystemLog extends EntityBean {
+public class SysLog extends EntityBean implements SysLogEntry {
 
 	@Column
 	private String info;
 
 	@Enumerated(EnumType.STRING)
 	private Severity severity;
+	
+	
 
-	SystemLog() {
-		super();
-	}
 
-	public SystemLog(String info) {
-		this(Severity.INFO, info);
-	}
 
-	public SystemLog(Severity severity, String info) {
-		this.info = info;
-		this.severity = severity;
-
-	}
 
 	public String getInfo() {
 		return info;
 	}
 
+
+
 	public void setInfo(String info) {
 		this.info = info;
 	}
 
-	@Override
-	public String toString() {
-		return "SystemLog [info=" + info + ", severity=" + severity + ", getCreatedAt()=" + getCreatedAt() + "]";
+
+
+	public Severity getSeverity() {
+		return severity;
 	}
 
+
+
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
+	}
+	
 	public enum Severity {
 		INFO,
-
+		
 		WARN,
-
+		
 		ERROR
 	}
-
-
-
-
 }
