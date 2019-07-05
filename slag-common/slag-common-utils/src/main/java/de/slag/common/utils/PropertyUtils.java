@@ -1,12 +1,18 @@
 package de.slag.common.utils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+
+import org.apache.commons.io.IOUtils;
 
 import de.slag.common.base.BaseException;
 
@@ -40,6 +46,28 @@ public class PropertyUtils {
 
 		});
 		return p;
+	}
+
+	public static Properties from(String propertiesAsString) {
+		final InputStream inputStream = IOUtils.toInputStream(propertiesAsString, StandardCharsets.UTF_8);
+		final Properties properties = new Properties();
+		try {
+			properties.load(inputStream);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		return properties;
+	}
+
+	public static String from(Properties properties) {
+		final List<String> entrys = new ArrayList<String>();
+		final Set<Object> keySet = properties.keySet();
+		keySet.stream()
+			.map(key -> (String) key)
+			.forEach(key -> entrys.add(key + "=" + properties.getProperty(key)));
+		
+		return String.join("\n", entrys);
+
 	}
 
 }
