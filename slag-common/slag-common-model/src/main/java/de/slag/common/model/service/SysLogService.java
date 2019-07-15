@@ -12,15 +12,30 @@ import de.slag.common.model.beans.SysLogEntry;
 public interface SysLogService {
 
 	default void log(Severity severity, String info) {
+		log(null, severity, info);
+	}
+
+	default void log(Class<?> clazz, Severity severity, String info) {		
 		final SysLog sysLog = new SysLog();
 		sysLog.setSeverity(severity);
-		sysLog.setInfo(info);
+		sysLog.setInfo(clazz == null ? info : clazz.getSimpleName() + " " + info);
 		getDao().save(sysLog);
-
 	}
 
 	default Collection<SysLogEntry> findBy(Predicate<SysLogEntry> filter) {
 		return getDao().findAll().stream().filter(filter).collect(Collectors.toList());
+	}
+
+	default void info(Class<?> clazz, String info) {
+		log(clazz, Severity.INFO, info);
+	}
+
+	default void error(Class<?> clazz, String info) {
+		log(Severity.ERROR, info);
+	}
+
+	default void warn(Class<?> clazz, String info) {
+		log(Severity.WARN, info);
 	}
 
 	Dao<SysLog> getDao();
