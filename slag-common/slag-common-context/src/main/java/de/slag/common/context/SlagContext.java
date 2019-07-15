@@ -44,7 +44,7 @@ public class SlagContext {
 
 			appCtx2 = new AnnotationConfigApplicationContext(SlagConfig.class);
 			String[] beanDefinitionNames = appCtx2.getBeanDefinitionNames();
-			LOG.info(beanDefinitionNames);
+			LOG.info(String.join(", ", beanDefinitionNames));
 
 			// ctx = new SlagContext();
 			// ctx.setContext(new AnnotationConfigApplicationContext());
