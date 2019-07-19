@@ -60,7 +60,7 @@ public class ReflectionUtils {
 	}
 
 	public static Optional<Method> determineGetter(Class<?> c, String attributeName) {
-		final String getterName = SET + upperFirstCharacter(attributeName);
+		final String getterName = GET + upperFirstCharacter(attributeName);
 		final String isName = IS + upperFirstCharacter(attributeName);
 		return determineMethods(c, m -> {
 			String name = m.getName();
