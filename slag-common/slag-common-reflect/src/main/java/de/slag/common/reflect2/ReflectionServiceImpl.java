@@ -11,6 +11,13 @@ public class ReflectionServiceImpl implements ReflectionService {
 
 	@Override
 	public <T> Optional<T> getValue(Object o, String attributeName, Class<T> returnType) {
+		final Object invoke = getValue(o, attributeName);
+		T cast = returnType.cast(invoke);
+		return Optional.of(cast);
+	}
+
+	@Override
+	public Object getValue(Object o, String attributeName) {
 		final Optional<Method> determineGetter = ReflectionUtils.determineGetter(o.getClass(), attributeName);
 		if (determineGetter.isEmpty()) {
 			throw new BaseException("no getter found for " + o.getClass() + ", " + attributeName);
@@ -22,9 +29,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new BaseException(e);
 		}
-
-		T cast = returnType.cast(invoke);
-		return Optional.of(cast);
+		return invoke;
 	}
 
 	@Override
