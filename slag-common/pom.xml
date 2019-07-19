@@ -22,5 +22,6 @@
 		<module>slag-common-model</module>
 		<module>slag-common-api</module>
 		<module>slag-common-export</module>
+		<module>slag-common-test</module>
 	</modules>
 </project>
