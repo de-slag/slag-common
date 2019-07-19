@@ -21,5 +21,6 @@
 		<module>slag-common-database</module>
 		<module>slag-common-model</module>
 		<module>slag-common-api</module>
+		<module>slag-common-export</module>
 	</modules>
 </project>
