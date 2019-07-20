@@ -28,7 +28,7 @@ public class CsvUtils {
 	private static final Log LOG = LogFactory.getLog(CsvUtils.class);
 
 	private static final char DEFAULT_DELIMITER = ';';
-	
+
 	public static final Predicate<CSVRecord> FILTER_NO_EMPTY = rec -> {
 		return rec.isConsistent();
 	};
@@ -47,20 +47,18 @@ public class CsvUtils {
 			throws IOException {
 		write(header, lines, Paths.get(filename));
 	}
-	
-	public static void write(Collection<Collection<String>> allLines, final String filename)
-			throws IOException {
+
+	public static void write(Collection<Collection<String>> allLines, final String filename) throws IOException {
 		write(allLines, Paths.get(filename));
-		
+
 	}
-	
-	public static void write(Collection<Collection<String>> allLines, final Path path)
-			throws IOException {
+
+	public static void write(Collection<Collection<String>> allLines, final Path path) throws IOException {
 		List<Collection<String>> asList = new ArrayList<>(allLines);
 		Collection<String> header = asList.get(0);
 		asList.remove(0);
 		ArrayList<Collection<String>> otherLines = new ArrayList<Collection<String>>(asList);
-		
+
 		write(header, otherLines, path);
 	}
 
@@ -170,12 +168,20 @@ public class CsvUtils {
 		} catch (IOException e) {
 			throw new BaseException(e);
 		}
-		
+
 		final CSVRecord csvRecord = records.get(0);
 		final Collection<String> header = new ArrayList<String>();
 		csvRecord.forEach(field -> header.add(field));
 		return header;
-		
-		
+
+	}
+
+	public static void write(List<List<String>> result, Path path) {
+		try {
+			write(result.stream().map(list -> (Collection<String>) list)
+					.collect(Collectors.toList()), path);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
 	}
 }
