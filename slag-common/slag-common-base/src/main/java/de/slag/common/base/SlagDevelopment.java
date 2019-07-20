@@ -8,9 +8,7 @@ public class SlagDevelopment {
 
 	private static final Log LOG = LogFactory.getLog(SlagDevelopment.class);
 
-	public static final String SLAG_DEVELOPMENT_ENABLED = "SlagDevelopmentEnabled";
-	
-	public static final String SLAG_DEVELOPMENT_SHOW_SQL = "SlagDevelopmentShowSql";
+	private static final String SLAG_DEVELOPMENT_ENABLED = "SlagDevelopmentEnabled";
 
 	private static SlagDevelopment instance;
 
