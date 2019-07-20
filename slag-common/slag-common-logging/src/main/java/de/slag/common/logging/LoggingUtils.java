@@ -20,7 +20,7 @@ public class LoggingUtils {
 
 	public static void activateLogging(final Level level, final String loggerName) {
 		Configurator.setLevel(loggerName, level);
-		LOG.fatal("logging activated: "  + level);
+		LOG.fatal(String.format("logging activated: %s at %s", loggerName, level));
 
 	}
 }
