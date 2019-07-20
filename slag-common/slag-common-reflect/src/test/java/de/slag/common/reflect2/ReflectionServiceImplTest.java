@@ -31,6 +31,12 @@ class ReflectionServiceImplTest {
 		Assertions.assertEquals("z-test", testPojo.getSvar());
 	}
 
+	@Test
+	void testGetType() {
+		Class<?> type = reflectionServiceImpl.getType(testPojo, "svar");
+		Assertions.assertEquals(String.class, type);
+	}
+
 	private class TestPojo {
 		private String svar;
 

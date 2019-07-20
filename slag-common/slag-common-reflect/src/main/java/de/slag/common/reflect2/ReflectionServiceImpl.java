@@ -18,11 +18,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 
 	@Override
 	public Object getValue(Object o, String attributeName) {
-		final Optional<Method> determineGetter = ReflectionUtils.determineGetter(o.getClass(), attributeName);
-		if (determineGetter.isEmpty()) {
-			throw new BaseException("no getter found for " + o.getClass() + ", " + attributeName);
-		}
-		final Method getter = determineGetter.get();
+		final Method getter = getter(o, attributeName);
 		final Object invoke;
 		try {
 			invoke = getter.invoke(o);
@@ -32,19 +28,47 @@ public class ReflectionServiceImpl implements ReflectionService {
 		return invoke;
 	}
 
-	@Override
-	public void setValue(Object o, String attributeName, Object value) {
-		Optional<Method> determineSetter = ReflectionUtils.determineSetter(o.getClass(), attributeName);
-		if (determineSetter.isEmpty()) {
-			throw new BaseException("no setter found for " + o.getClass() + ", " + attributeName);
+	private Method getter(Object obj, String attributeName) {
+		final Optional<Method> determineGetter = ReflectionUtils.determineGetter(obj.getClass(), attributeName);
+		if (determineGetter.isEmpty()) {
+			throw new BaseException("no getter found for " + obj.getClass() + ", " + attributeName);
 		}
-		Method setter = determineSetter.get();
-		
+		return determineGetter.get();
+	}
+
+	@Override
+	public void setValue(Object obj, String attributeName, Object value) {
+		Method setter = setter(obj, attributeName);
+
 		try {
-			setter.invoke(o, value);
+			setter.invoke(obj, value);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new BaseException(e);
 		}
+	}
+
+	private Method setter(Object obj, String attributeName) {
+		final Optional<Method> determineSetter = ReflectionUtils.determineSetter(obj.getClass(), attributeName);
+		if (determineSetter.isEmpty()) {
+			throw new BaseException("no setter found for " + obj.getClass() + ", " + attributeName);
+		}
+		return determineSetter.get();
+	}
+
+	@Override
+	public Class<?> getType(Object obj, String attribute) {
+		Method getter = getter(obj, attribute);
+		Method setter = setter(obj, attribute);
+
+		Class<?> returnType = getter.getReturnType();
+
+		Class<?> parameterType = setter.getParameterTypes()[0];
+
+		if (!returnType.equals(parameterType)) {
+			throw new BaseException(
+					String.format("returnType and parameterType are not equals: %s, %s", returnType, parameterType));
+		}
+		return returnType;
 	}
 
 }
