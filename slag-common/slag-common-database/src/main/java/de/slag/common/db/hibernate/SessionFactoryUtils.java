@@ -17,7 +17,7 @@ public class SessionFactoryUtils {
 	public static SessionFactory createSessionFactory(Properties properties, Collection<Class<?>> registerClasses) {
 		final Configuration configuration = new Configuration();
 		configuration.addProperties(properties);
-		if (SlagDevelopment.isEnabled(SlagDevelopment.SLAG_DEVELOPMENT_SHOW_SQL)) {
+		if (SlagDevelopment.isEnabled() && SlagDevelopment.isEnabled(AvailableSettings.SHOW_SQL)) {
 			configuration.setProperty(AvailableSettings.SHOW_SQL, "true");
 		}
 		configuration.setPhysicalNamingStrategy(new DefaultNamingStrategy());
