@@ -8,7 +8,9 @@ public class SlagDevelopment {
 
 	private static final Log LOG = LogFactory.getLog(SlagDevelopment.class);
 
-	private static final String SLAG_DEVELOPMENT_ENABLED = "SlagDevelopmentEnabled";
+	public static final String SLAG_DEVELOPMENT_ENABLED = "SlagDevelopmentEnabled";
+	
+	public static final String SLAG_DEVELOPMENT_SHOW_SQL = "SlagDevelopmentShowSql";
 
 	private static SlagDevelopment instance;
 
@@ -20,12 +22,15 @@ public class SlagDevelopment {
 	}
 
 	public static boolean isEnabled() {
-		final String property = System.getProperty(SLAG_DEVELOPMENT_ENABLED);
-		final boolean devEnabled = BooleanUtils.isTrue(Boolean.valueOf(property));
+		final boolean devEnabled = isEnabled(SLAG_DEVELOPMENT_ENABLED);
 		if (devEnabled) {
 			LOG.warn(SLAG_DEVELOPMENT_ENABLED);
 		}
 		return devEnabled;
+	}
+	
+	public static boolean isEnabled(String propertyKey) {
+		return BooleanUtils.isTrue(Boolean.valueOf(System.getProperty(propertyKey)));
 	}
 
 	public boolean getEnabled() {
