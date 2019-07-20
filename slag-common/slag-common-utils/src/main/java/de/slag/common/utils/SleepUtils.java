@@ -9,7 +9,7 @@ public class SleepUtils {
 	private static final Log LOG = LogFactory.getLog(SleepUtils.class);
 
 	public static void sleepFor(int sleeptimeInMs) {
-		LOG.debug("sleep for (ms):" + sleeptimeInMs);
+		LOG.trace("sleep for (ms):" + sleeptimeInMs);
 		try {
 			Thread.sleep(sleeptimeInMs);
 		} catch (final InterruptedException e) {
