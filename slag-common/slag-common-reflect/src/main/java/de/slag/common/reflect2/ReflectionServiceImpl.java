@@ -30,7 +30,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 
 	private Method getter(Object obj, String attributeName) {
 		final Optional<Method> determineGetter = ReflectionUtils.determineGetter(obj.getClass(), attributeName);
-		if (determineGetter.isEmpty()) {
+		if (!determineGetter.isPresent()) {
 			throw new BaseException("no getter found for " + obj.getClass() + ", " + attributeName);
 		}
 		return determineGetter.get();
@@ -49,7 +49,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 
 	private Method setter(Object obj, String attributeName) {
 		final Optional<Method> determineSetter = ReflectionUtils.determineSetter(obj.getClass(), attributeName);
-		if (determineSetter.isEmpty()) {
+		if (!determineSetter.isPresent()) {
 			throw new BaseException("no setter found for " + obj.getClass() + ", " + attributeName);
 		}
 		return determineSetter.get();
