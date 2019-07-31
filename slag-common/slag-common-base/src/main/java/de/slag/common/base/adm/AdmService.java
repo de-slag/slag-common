@@ -1,6 +1,8 @@
-package de.slag.common.base;
+package de.slag.common.base.adm;
 
 import java.util.Optional;
+
+import de.slag.common.base.BaseException;
 
 public interface AdmService {
 
