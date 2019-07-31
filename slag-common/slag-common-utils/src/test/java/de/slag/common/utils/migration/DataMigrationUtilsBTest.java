@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import de.slag.common.base.migration.MigrationDataStore;
 
@@ -29,7 +29,7 @@ class DataMigrationUtilsBTest {
 		Assert.assertThat(processor.get(), Matchers.is("TestEntityA [name=Mr.X]"));
 	}
 
-	@BeforeEach
+	@Before
 	void setUp() throws Exception {
 		from = new MigrationDataStore<DataMigrationUtilsBTest.TestEntityA>() {
 

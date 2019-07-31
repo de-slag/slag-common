@@ -9,8 +9,8 @@ import java.util.Set;
 import org.apache.commons.csv.CSVRecord;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 class CsvsUtilsTest {
 
@@ -18,7 +18,7 @@ class CsvsUtilsTest {
 
 	private File baseDir;
 
-	@BeforeEach
+	@Before
 	void setUp() throws Exception {
 		baseDir = ResourceUtils.getFileFromResources(BASE_RESOURCE_DIR);
 	}

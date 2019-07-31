@@ -1,12 +1,12 @@
 package de.slag.common.utils;
 
 import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Properties;
 
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 class PropertyUtilsTest {
 	
@@ -24,7 +24,7 @@ class PropertyUtilsTest {
 		Properties from = PropertyUtils.from(propertiesAsString);
 		String from2 = PropertyUtils.from(from);
 		
-		assertEquals(propertiesAsString, from2);
+		Assert.assertEquals(propertiesAsString, from2);
 	}
 
 }

@@ -1,7 +1,5 @@
 package de.slag.common.utils;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -11,7 +9,7 @@ import java.util.Date;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Ignore;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 class DateUtilsTest {
 
@@ -44,17 +42,17 @@ class DateUtilsTest {
 	@Ignore
 	@Test
 	void testToDateLocalDate() {
-		fail("Not yet implemented");
+		Assert.assertTrue(false); // not implemented
 	}
 
 	@Test
 	void testToLocalDate() {
-		fail("Not yet implemented");
+		Assert.assertTrue(false); // not implemented
 	}
 
 	@Test
 	void testToLocalDateTime() {
-		fail("Not yet implemented");
+		Assert.assertTrue(false); // not implemented
 	}
 
 	@Test

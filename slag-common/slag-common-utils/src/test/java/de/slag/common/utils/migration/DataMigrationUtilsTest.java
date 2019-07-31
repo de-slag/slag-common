@@ -1,19 +1,18 @@
 package de.slag.common.utils.migration;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 class DataMigrationUtilsTest {
 
-	@BeforeEach
+	@Before
 	void setUp() throws Exception {
 	}
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		Assert.assertTrue("Not yet implemented", false);
 	}
 
 }

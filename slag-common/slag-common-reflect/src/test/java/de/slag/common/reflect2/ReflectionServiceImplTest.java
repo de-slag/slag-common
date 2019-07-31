@@ -2,9 +2,9 @@ package de.slag.common.reflect2;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 class ReflectionServiceImplTest {
 
@@ -12,7 +12,7 @@ class ReflectionServiceImplTest {
 
 	TestPojo testPojo;
 
-	@BeforeEach
+	@Before
 	public void init() {
 		testPojo = new TestPojo();
 		testPojo.setSvar("TesT");
@@ -21,20 +21,20 @@ class ReflectionServiceImplTest {
 	@Test
 	void testGetValue() {
 		Optional<String> value = reflectionServiceImpl.getValue(testPojo, "svar", String.class);
-		Assertions.assertTrue(value.isPresent());
-		Assertions.assertEquals("TesT", value.get());
+		Assert.assertTrue(value.isPresent());
+		Assert.assertEquals("TesT", value.get());
 	}
 
 	@Test
 	void testSetValue() {
 		reflectionServiceImpl.setValue(testPojo, "svar", "z-test");
-		Assertions.assertEquals("z-test", testPojo.getSvar());
+		Assert.assertEquals("z-test", testPojo.getSvar());
 	}
 
 	@Test
 	void testGetType() {
 		Class<?> type = reflectionServiceImpl.getType(testPojo, "svar");
-		Assertions.assertEquals(String.class, type);
+		Assert.assertEquals(String.class, type);
 	}
 
 	private class TestPojo {
