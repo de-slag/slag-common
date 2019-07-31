@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import de.slag.common.base.migration.MigrationDataStore;
 
-class DataMigrationUtilsBTest {
+public class DataMigrationUtilsBTest {
 
 	private MigrationDataStore<TestEntityA> from;
 
@@ -24,13 +24,13 @@ class DataMigrationUtilsBTest {
 	private StringProcessor processor;
 
 	@Test
-	void test() {
+	public void test() {
 		DataMigrationUtils.migrate(from, to, transformator);
 		Assert.assertThat(processor.get(), Matchers.is("TestEntityA [name=Mr.X]"));
 	}
 
 	@Before
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		from = new MigrationDataStore<DataMigrationUtilsBTest.TestEntityA>() {
 
 			@Override

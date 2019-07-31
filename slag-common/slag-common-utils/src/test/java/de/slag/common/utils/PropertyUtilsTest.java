@@ -8,19 +8,19 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-class PropertyUtilsTest {
+public class PropertyUtilsTest {
 	
 	private String propertiesAsString = "a=1\nb=2";
 
 	@Test
-	void testFromString() {
+	public void testFromString() {
 		Properties properties = PropertyUtils.from(propertiesAsString);
 		assertThat(properties.get("a"), Matchers.is("1"));
 		assertThat(properties.get("b"), Matchers.is("2"));
 	}
 
 	@Test
-	void testFromProperties() {
+	public void testFromProperties() {
 		Properties from = PropertyUtils.from(propertiesAsString);
 		String from2 = PropertyUtils.from(from);
 		

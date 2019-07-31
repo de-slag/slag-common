@@ -12,19 +12,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-class CsvsUtilsTest {
+public class CsvsUtilsTest {
 
 	private static final String BASE_RESOURCE_DIR = "csv";
 
 	private File baseDir;
 
 	@Before
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		baseDir = ResourceUtils.getFileFromResources(BASE_RESOURCE_DIR);
 	}
 
 	@Test
-	void test() {
+	public void test() {
 		final Map<String, Collection<CSVRecord>> csvs = CsvsUtils.get(baseDir);
 		Assert.assertNotNull(csvs);
 		Assert.assertThat(csvs.size(), Matchers.is(1));

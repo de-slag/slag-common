@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-class ReflectionServiceImplTest {
+public class ReflectionServiceImplTest {
 
 	ReflectionServiceImpl reflectionServiceImpl = new ReflectionServiceImpl();
 
@@ -19,20 +19,20 @@ class ReflectionServiceImplTest {
 	}
 
 	@Test
-	void testGetValue() {
+	public void testGetValue() {
 		Optional<String> value = reflectionServiceImpl.getValue(testPojo, "svar", String.class);
 		Assert.assertTrue(value.isPresent());
 		Assert.assertEquals("TesT", value.get());
 	}
 
 	@Test
-	void testSetValue() {
+	public void testSetValue() {
 		reflectionServiceImpl.setValue(testPojo, "svar", "z-test");
 		Assert.assertEquals("z-test", testPojo.getSvar());
 	}
 
 	@Test
-	void testGetType() {
+	public void testGetType() {
 		Class<?> type = reflectionServiceImpl.getType(testPojo, "svar");
 		Assert.assertEquals(String.class, type);
 	}
