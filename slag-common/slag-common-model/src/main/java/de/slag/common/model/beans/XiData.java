@@ -1,4 +1,4 @@
-package de.slag.common.model;
+package de.slag.common.model.beans;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -6,6 +6,8 @@ import java.util.Properties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+
+import de.slag.common.model.EntityBean;
 
 @Entity
 public class XiData extends EntityBean {
