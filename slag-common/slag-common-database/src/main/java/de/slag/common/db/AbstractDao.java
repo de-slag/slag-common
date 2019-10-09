@@ -13,12 +13,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import de.slag.common.Dao;
+import de.slag.common.api.Dao;
 import de.slag.common.base.BaseException;
 import de.slag.common.db.hibernate.HibernateResource;
 import de.slag.common.model.EntityBean;
 import de.slag.common.model.EntityBeanUtils;
-import de.slag.common.model.HackyIdAllocator;
 
 public abstract class AbstractDao<T> implements Dao<T> {
 

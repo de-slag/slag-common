@@ -1,10 +1,10 @@
-package de.slag.common.model.service;
+package de.slag.common.api.service;
 
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import de.slag.common.Dao;
+import de.slag.common.api.Dao;
 import de.slag.common.model.beans.SysLog;
 import de.slag.common.model.beans.SysLog.Severity;
 import de.slag.common.model.beans.SysLogEntry;

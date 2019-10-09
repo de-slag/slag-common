@@ -1,4 +1,4 @@
-package de.slag.common;
+package de.slag.common.api;
 
 import java.util.Collection;
 import java.util.Optional;
