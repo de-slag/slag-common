@@ -1,16 +1,13 @@
-package de.slag.common.utils;
+package de.slag.common.core;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
 import de.slag.common.base.BaseException;
-import de.slag.common.core.DatabaseConfig;
-import de.slag.common.core.FileStorageConfig;
 
 public final class SlagConfigSupportUtils {
 

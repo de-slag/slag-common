@@ -1,4 +1,4 @@
-package de.slag.common.utils;
+package de.slag.core;
 
 import static org.junit.Assert.assertThat;
 
@@ -7,6 +7,8 @@ import java.util.Properties;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
+
+import de.slag.common.core.PropertyUtils;
 
 public class PropertyUtilsTest {
 	

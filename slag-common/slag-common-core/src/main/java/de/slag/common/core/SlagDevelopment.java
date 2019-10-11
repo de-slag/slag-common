@@ -1,4 +1,4 @@
-package de.slag.common.base;
+package de.slag.common.core;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;

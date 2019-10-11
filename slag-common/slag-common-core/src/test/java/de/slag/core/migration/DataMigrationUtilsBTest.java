@@ -1,4 +1,4 @@
-package de.slag.common.utils.migration;
+package de.slag.core.migration;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.slag.common.core.migration.DataMigrationUtils;
 import de.slag.common.core.migration.MigrationDataStore;
 
 public class DataMigrationUtilsBTest {

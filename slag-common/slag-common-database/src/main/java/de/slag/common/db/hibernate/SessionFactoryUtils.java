@@ -10,7 +10,7 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import de.slag.common.base.SlagDevelopment;
+import de.slag.common.core.SlagDevelopment;
 
 public class SessionFactoryUtils {
 

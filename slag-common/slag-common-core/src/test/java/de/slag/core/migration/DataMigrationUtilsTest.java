@@ -1,4 +1,4 @@
-package de.slag.common.utils.migration;
+package de.slag.core.migration;
 
 import org.junit.Assert;
 import org.junit.Before;

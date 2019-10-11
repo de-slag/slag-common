@@ -1,4 +1,4 @@
-package de.slag.common.utils;
+package de.slag.common.core;
 
 import java.io.IOException;
 import java.io.InputStream;

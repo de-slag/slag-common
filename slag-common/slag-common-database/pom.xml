@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.slag.common</groupId>
-			<artifactId>slag-common-base</artifactId>
+			<artifactId>slag-common-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
