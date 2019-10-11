@@ -29,9 +29,7 @@ core -> base, model, utils
 
 utils -> base
 
-*function modules* -> core
-
-*function modules* -> utils
+*function modules* -> core, utils
 
 
 
