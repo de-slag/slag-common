@@ -4,6 +4,7 @@
 basic functions, that are:
 * interfaces, i.e. functional interfaces (i.e. not from services)
 * exceptions
+
 framework dependencies so restricted as possible
 ### core
 technical basic functions that are:
