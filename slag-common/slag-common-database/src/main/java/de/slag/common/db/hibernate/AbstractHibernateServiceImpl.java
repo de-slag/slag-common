@@ -13,27 +13,31 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import de.slag.common.base.SlagProperties;
-import de.slag.common.context.SubClassesUtils;
-import de.slag.common.db.h2.InMemoryProperties;
-import de.slag.common.model.EntityBean;
 
 public class AbstractHibernateServiceImpl implements HibernateService, Closeable {
 
 	private SessionFactory sessionFactory;
 
-	public AbstractHibernateServiceImpl() {
+	public AbstractHibernateServiceImpl(Collection<Class<?>> registerClasses) {
+		init(registerClasses);
+	}
+
+	AbstractHibernateServiceImpl() {
 		init();
 	}
 
 	public void init() {
-		final Collection<Class<?>> registerClasses = SubClassesUtils.findAllSubclassesOf(EntityBean.class);
+		init(null);
+	}
+
+	public void init(Collection<Class<?>> registerClasses) {
 		sessionFactory = SessionFactoryUtils.createSessionFactory(getProperties(), new ArrayList<>(registerClasses));
 	}
 
 	protected Properties getProperties() {
 		return SlagProperties.getConfigProperties();
 	}
-	
+
 	@Override
 	public void save(Object o) {
 		try (final Session s = sessionFactory.openSession()) {
@@ -42,7 +46,7 @@ public class AbstractHibernateServiceImpl implements HibernateService, Closeable
 			tx.commit();
 		}
 	}
-	
+
 	@Override
 	public <T> Optional<T> loadById(Long id, Class<T> clazz) {
 		try (final Session s = sessionFactory.openSession()) {
@@ -52,7 +56,7 @@ public class AbstractHibernateServiceImpl implements HibernateService, Closeable
 			return Optional.of(entity);
 		}
 	}
-	
+
 	@Override
 	public Collection<Long> findAllIds(Class<?> clazz) {
 		final Collection<Long> results = new ArrayList<Long>();

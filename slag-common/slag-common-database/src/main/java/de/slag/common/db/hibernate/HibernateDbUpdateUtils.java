@@ -1,5 +1,6 @@
 package de.slag.common.db.hibernate;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
 
@@ -8,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 
-import de.slag.common.context.SubClassesUtils;
+//import de.slag.common.context.SubClassesUtils;
 import de.slag.common.model.EntityBean;
 
 public class HibernateDbUpdateUtils {
@@ -37,7 +38,7 @@ public class HibernateDbUpdateUtils {
 		final Properties properties = new Properties();
 		properties.putAll(prop);
 		properties.put(AvailableSettings.HBM2DDL_AUTO, autoAction);
-		final Collection<Class<?>> entityBeanClasses = SubClassesUtils.findAllSubclassesOf(EntityBean.class);
+		final Collection<Class<?>> entityBeanClasses = new ArrayList<>();// SubClassesUtils.findAllSubclassesOf(EntityBean.class);
 		LOG.info(autoAction + "...");
 		HibernateUtils.access(HibernateUtils.EMPTY_SESSION_CONSUMER, properties, entityBeanClasses);
 		LOG.info(autoAction + "...done.");

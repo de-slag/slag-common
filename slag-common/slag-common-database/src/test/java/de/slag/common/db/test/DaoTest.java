@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.slag.common.context.SlagContext;
+//import de.slag.common.context.SlagContext;
 import de.slag.common.db.test.dao.TestDao;
 
 public class DaoTest {
@@ -15,8 +15,8 @@ public class DaoTest {
 	@Before
 	public void setup() {
 		//SlagContext.init();
-		testDao = SlagContext.getBean(TestDao.class);
-		Assert.assertNotNull(testDao);
+//		testDao = SlagContext.getBean(TestDao.class);
+//		Assert.assertNotNull(testDao);
 	}
 
 	@Test
