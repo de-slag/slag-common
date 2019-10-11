@@ -1,25 +1,35 @@
 # Architecture
-## Internal dependencies
-
-// common modules
-CM={base,logging,...}
-
-    $CM -> common-api
-    $CM -> common-basic
-    $CM -> common-utils
-
 ## modules
-### api
-Interfaces of Implementations in $CM.
-
-#### Dependencies
-Helper Frameworks, see root pom.
-
+### base
+basic functions, that are:
+* interfaces, i.e. functional interfaces (i.e. not from services)
+* exceptions
+framework dependencies so restricted as possible
+### core
+technical basic functions that are:
+* exceed the limitations of *base* or *utils*
+* not special enough to be a *function module*
+### model
+a basic data model with:
+* ony technical content
+* scope to persist (for data models that are not to persist, this is not necessary)
 ### utils
-Util classes with static access.
+helping classes that:
+* only have static access
+* only provides logic for language api data types
+### function modules
+functional modules are logics that:
+* need special framework dependencies
+* provides or collects special technical logic
+* are accessible by builders in main package
+* 's name start with '-common-function'
 
-### basic 
-Other
+## internal dependencies
+core -> base, model
+utils -> base
+*function modules* -> core
+*function modules* -> utils
+
 
 
 
