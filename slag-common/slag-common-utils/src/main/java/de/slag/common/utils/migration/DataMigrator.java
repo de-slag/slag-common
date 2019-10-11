@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Function;
 
-import de.slag.common.base.migration.MigrationDataStore;
+import de.slag.common.core.migration.MigrationDataStore;
 
 public class DataMigrator<F, T> {
 

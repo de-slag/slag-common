@@ -1,4 +1,4 @@
-package de.slag.common.base.event;
+package de.slag.common.core.event;
 
 public interface EventAction {
 	

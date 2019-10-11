@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.Properties;
 
 import de.slag.common.base.BaseException;
-import de.slag.common.base.DatabaseConfig;
-import de.slag.common.base.FileStorageConfig;
+import de.slag.common.core.DatabaseConfig;
+import de.slag.common.core.FileStorageConfig;
 
 public final class SlagConfigSupportUtils {
 

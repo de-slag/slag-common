@@ -1,4 +1,4 @@
-package de.slag.common.base;
+package de.slag.common.core;
 
 import java.util.Date;
 

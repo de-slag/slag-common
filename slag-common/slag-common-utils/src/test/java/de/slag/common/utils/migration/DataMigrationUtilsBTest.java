@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.slag.common.base.migration.MigrationDataStore;
+import de.slag.common.core.migration.MigrationDataStore;
 
 public class DataMigrationUtilsBTest {
 

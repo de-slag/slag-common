@@ -1,4 +1,4 @@
-package de.slag.common.base.event;
+package de.slag.common.core.event;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package de.slag.common.base.migration;
+package de.slag.common.core.migration;
 
 import java.util.Collection;
 

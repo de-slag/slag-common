@@ -1,4 +1,4 @@
-package de.slag.common.base.adm;
+package de.slag.common.core.adm;
 
 import java.util.HashMap;
 import java.util.Map;

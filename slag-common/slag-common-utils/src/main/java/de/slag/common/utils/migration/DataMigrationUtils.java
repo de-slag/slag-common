@@ -2,7 +2,7 @@ package de.slag.common.utils.migration;
 
 import java.util.function.Function;
 
-import de.slag.common.base.migration.MigrationDataStore;
+import de.slag.common.core.migration.MigrationDataStore;
 import de.slag.common.utils.migration.DataMigrator.Case;
 
 public class DataMigrationUtils {
