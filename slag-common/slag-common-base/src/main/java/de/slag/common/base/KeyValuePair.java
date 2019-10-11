@@ -1,4 +1,4 @@
-package de.slag.common.api;
+package de.slag.common.base;
 
 public interface KeyValuePair<K, V> {
 
