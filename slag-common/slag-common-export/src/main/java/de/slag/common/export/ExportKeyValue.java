@@ -1,12 +1,12 @@
 package de.slag.common.export;
 
-import de.slag.common.api.KeyValuePair;
+import de.slag.common.base.KeyValuePair;
 
 public class ExportKeyValue implements KeyValuePair<String, Object> {
 
 	private String key;
-	
-	private Object value;	
+
+	private Object value;
 
 	public ExportKeyValue(String key, Object value) {
 		super();

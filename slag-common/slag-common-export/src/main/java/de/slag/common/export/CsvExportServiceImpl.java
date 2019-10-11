@@ -8,24 +8,18 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import de.slag.common.api.CsvExportService;
-import de.slag.common.api.ReflectionService;
 import de.slag.common.utils.CsvUtils;
+import de.slag.common.utils.reflect2.ReflectionEngine;
+import de.slag.common.utils.reflect2.ReflectionEngineBuilder;
 
-public class CsvExportServiceImpl implements CsvExportService {
+public class CsvExportServiceImpl {
 
 	private static final Log LOG = LogFactory.getLog(CsvExportServiceImpl.class);
 
-	@Resource
-	private ReflectionService reflectionService;
-
-	@Override
 	public void export(File toFile, List<String> attributes, Collection<?> datas) {
 		final List<List<String>> result = new ArrayList<>();
 
@@ -47,9 +41,10 @@ public class CsvExportServiceImpl implements CsvExportService {
 	}
 
 	private List<String> export(List<String> attributes, Object data, Consumer<Supplier<String>> messageConsumer) {
+		ReflectionEngine reflectionEngine = new ReflectionEngineBuilder().build();
 		return attributes.stream()
 				.map(att -> {
-					final Object value = reflectionService.getValue(data, att);
+					final Object value = reflectionEngine.getValue(data, att);
 					messageConsumer.accept(() -> String.format("export: %s.%s: '%s'", data, att, value));
 					return value;
 
