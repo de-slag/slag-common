@@ -19,7 +19,7 @@
 			<version>${project.version}</version>
 		</dependency>
 
-		<dependency>
+ 		<dependency>
 			<groupId>de.slag.common</groupId>
 			<artifactId>slag-common-context</artifactId>
 			<version>${project.version}</version>
