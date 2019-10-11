@@ -25,9 +25,12 @@ functional modules are logics that:
 * 's name start with '-common-function'
 
 ## internal dependencies
-core -> base, model
+core -> base, model, utils
+
 utils -> base
+
 *function modules* -> core
+
 *function modules* -> utils
 
 
