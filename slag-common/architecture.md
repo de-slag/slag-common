@@ -26,8 +26,11 @@ functional modules are logics that:
 
 ## internal dependencies
 core -> base, model
+
 utils -> base
+
 *function modules* -> core
+
 *function modules* -> utils
 
 
