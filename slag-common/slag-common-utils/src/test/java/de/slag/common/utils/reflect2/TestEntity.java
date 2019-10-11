@@ -1,4 +1,4 @@
-package de.slag.common.reflect2;
+package de.slag.common.utils.reflect2;
 
 public class TestEntity extends AbstractTestEntity {
 	

@@ -21,12 +21,6 @@
 			<version>${project.version}</version>
 		</dependency>
 
-
-<!-- 		<dependency>
-			<groupId>de.slag.common</groupId>
-			<artifactId>slag-common-api</artifactId>
-			<version>${project.version}</version>
-		</dependency> -->
 		<!-- TEST -->
 		<dependency>
 			<groupId>junit</groupId>

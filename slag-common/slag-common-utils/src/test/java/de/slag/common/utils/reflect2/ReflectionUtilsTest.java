@@ -1,4 +1,4 @@
-package de.slag.common.reflect2;
+package de.slag.common.utils.reflect2;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
