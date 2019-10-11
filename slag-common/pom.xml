@@ -17,7 +17,6 @@
 		<module>slag-common-core</module>
 		<module>slag-common-database</module>
 		<module>slag-common-export</module>
-		<module>slag-common-logging</module>
 		<module>slag-common-model</module>
 		<module>slag-common-odf</module>
 		<module>slag-common-reflect</module>
