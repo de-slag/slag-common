@@ -13,6 +13,7 @@ import de.slag.common.ModelConstants;
 
 @MappedSuperclass
 public abstract class EntityBean {
+	
 	@Id
 	@GeneratedValue
 	@Column(updatable = false, nullable = false)

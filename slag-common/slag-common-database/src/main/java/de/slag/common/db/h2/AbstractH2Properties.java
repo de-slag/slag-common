@@ -4,13 +4,16 @@ import java.util.Properties;
 
 import org.hibernate.cfg.AvailableSettings;
 
-class AbstractH2Properties extends Properties {
+public class AbstractH2Properties extends Properties {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String DIALECT = "org.hibernate.dialect.H2Dialect";
+	public static final String DRIVER = "org.h2.Driver";
+
 	public AbstractH2Properties() {
-		put(AvailableSettings.DRIVER, "org.h2.Driver");
-		put(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
+		put(AvailableSettings.DRIVER, DRIVER);
+		put(AvailableSettings.DIALECT, DIALECT);
 	}
 
 	protected void setPass(final String string) {

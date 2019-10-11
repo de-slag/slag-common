@@ -3,8 +3,6 @@ package de.slag.common.db.hibernate;
 import java.util.Collection;
 import java.util.Optional;
 
-import org.hibernate.SessionFactory;
-
 public interface HibernateService extends HibernateResource {
 
 	void save(Object o);

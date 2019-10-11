@@ -25,7 +25,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
 	@Resource
 	private HibernateResource hibernateResource;
 
-	protected abstract Class<T> getPersistentType();
+	public abstract Class<T> getPersistentType();
 	
 	public void remove(T t) {
 		if(!(t instanceof EntityBean)) {
