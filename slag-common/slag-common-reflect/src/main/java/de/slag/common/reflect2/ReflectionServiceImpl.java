@@ -4,20 +4,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import de.slag.common.api.ReflectionService;
 import de.slag.common.base.BaseException;
 
-public class ReflectionServiceImpl implements ReflectionService {
+public class ReflectionServiceImpl {
+	
+	ReflectionServiceImpl() {
+		// TODO Auto-generated constructor stub
+	}
 
-	@Override
-	public <T> Optional<T> getValue(Object o, String attributeName, Class<T> returnType) {
+	<T> Optional<T> getValue(Object o, String attributeName, Class<T> returnType) {
 		final Object invoke = getValue(o, attributeName);
 		T cast = returnType.cast(invoke);
 		return Optional.of(cast);
 	}
 
-	@Override
-	public Object getValue(Object o, String attributeName) {
+	Object getValue(Object o, String attributeName) {
 		final Method getter = getter(o, attributeName);
 		final Object invoke;
 		try {
@@ -36,8 +37,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 		return determineGetter.get();
 	}
 
-	@Override
-	public void setValue(Object obj, String attributeName, Object value) {
+	void setValue(Object obj, String attributeName, Object value) {
 		Method setter = setter(obj, attributeName);
 
 		try {
@@ -55,8 +55,7 @@ public class ReflectionServiceImpl implements ReflectionService {
 		return determineSetter.get();
 	}
 
-	@Override
-	public Class<?> getType(Object obj, String attribute) {
+	Class<?> getType(Object obj, String attribute) {
 		Method getter = getter(obj, attribute);
 		Method setter = setter(obj, attribute);
 

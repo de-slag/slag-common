@@ -22,11 +22,11 @@
 		</dependency>
 
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>de.slag.common</groupId>
 			<artifactId>slag-common-api</artifactId>
 			<version>${project.version}</version>
-		</dependency>
+		</dependency> -->
 		<!-- TEST -->
 		<dependency>
 			<groupId>junit</groupId>
