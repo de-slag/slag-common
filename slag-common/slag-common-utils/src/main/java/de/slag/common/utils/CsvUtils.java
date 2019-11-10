@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -169,6 +170,10 @@ public class CsvUtils {
 			throw new BaseException(e);
 		}
 
+		if (records.isEmpty()) {
+			return Collections.emptyList();
+		}
+
 		final CSVRecord csvRecord = records.get(0);
 		final Collection<String> header = new ArrayList<String>();
 		csvRecord.forEach(field -> header.add(field));
@@ -178,8 +183,7 @@ public class CsvUtils {
 
 	public static void write(List<List<String>> result, Path path) {
 		try {
-			write(result.stream().map(list -> (Collection<String>) list)
-					.collect(Collectors.toList()), path);
+			write(result.stream().map(list -> (Collection<String>) list).collect(Collectors.toList()), path);
 		} catch (IOException e) {
 			throw new BaseException(e);
 		}
