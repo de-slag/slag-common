@@ -15,4 +15,8 @@ public class BaseException extends RuntimeException {
 	public BaseException(String s) {
 		super(s);
 	}
+	
+	public BaseException(String format, Object... objects) {
+		super(String.format(format, objects));
+	}
 }
