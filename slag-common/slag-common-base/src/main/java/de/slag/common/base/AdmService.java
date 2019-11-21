@@ -1,7 +1,9 @@
 package de.slag.common.base;
 
+import java.util.Optional;
+
 public interface AdmService {
-	
-	String getValue(String key);
+
+	Optional<String> getValue(String key);
 
 }
