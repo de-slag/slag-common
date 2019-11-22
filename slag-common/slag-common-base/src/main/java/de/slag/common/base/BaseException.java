@@ -15,11 +15,7 @@ public class BaseException extends RuntimeException {
 	public BaseException(String s) {
 		super(s);
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> branch 'master' of https://github.com/de-slag/slag-common.git
 	public BaseException(String format, Object... objects) {
 		super(String.format(format, objects));
 	}
