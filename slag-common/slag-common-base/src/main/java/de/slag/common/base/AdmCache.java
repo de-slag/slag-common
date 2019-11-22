@@ -2,7 +2,7 @@ package de.slag.common.base;
 
 import java.util.Optional;
 
-public interface AdmService {
+public interface AdmCache {
 
 	Optional<String> getValue(String key);
 
