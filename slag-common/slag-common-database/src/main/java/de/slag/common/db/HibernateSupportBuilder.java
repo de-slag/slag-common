@@ -67,7 +67,7 @@ public class HibernateSupportBuilder implements Builder<HibernateSupport> {
 			HibernateDbUpdateUtils.update(props, registerClasses);
 		}
 
-		return new HibernateSupport(registerClasses, props);
+		return new HibernateSupportImpl(registerClasses, props);
 	}
 
 	public HibernateSupportBuilder url(String url) {
