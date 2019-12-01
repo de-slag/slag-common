@@ -22,6 +22,7 @@
 		<module>slag-common-reflect</module>
 		<module>slag-common-test</module>
 		<module>slag-common-utils</module>
+		<module>slag-common-test-support</module>
 	</modules>
 
 	<properties>
