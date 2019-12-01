@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
+import de.slag.common.testsupport.model.TestEntity;
+
 public class TestHibernateSupportBuilderTest {
 
 	@Test
