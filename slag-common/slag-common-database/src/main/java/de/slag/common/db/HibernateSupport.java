@@ -14,5 +14,4 @@ public interface HibernateSupport extends Closeable {
 
 	<T> Collection<T> findBy(Class<T> type, String sql);
 
-
 }

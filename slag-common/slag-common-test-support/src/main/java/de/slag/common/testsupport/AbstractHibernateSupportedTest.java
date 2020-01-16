@@ -17,5 +17,9 @@ public abstract class AbstractHibernateSupportedTest extends AbstractMockitoRunn
 			.registerClasses(getRegisterClasses()).build();
 
 	protected abstract Collection<Class<?>> getRegisterClasses();
+	
+	protected HibernateSupport getHibernateSupport() {
+		return hibernateSupport;
+	}
 
 }
