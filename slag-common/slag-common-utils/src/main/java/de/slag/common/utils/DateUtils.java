@@ -3,10 +3,14 @@ package de.slag.common.utils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.Year;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,7 +47,7 @@ public class DateUtils {
 		}
 		return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
 	}
-	
+
 	public static LocalDate getEasterSunday(int year) {
 		return getEasterSunday(Year.of(year));
 	}
@@ -66,17 +70,40 @@ public class DateUtils {
 		final int day = (((h + m - (7 * n) + 114) % 31) + 1);
 		return LocalDate.of(y, month, day);
 	}
-	
+
 	public static String millisecondsToHumanReadable(long millis) {
 		long seconds = millis / 1000;
 		long minutes = seconds / 60;
 		long hours = minutes / 60;
 		long days = hours / 24;
-		
+
 		long restMillis = millis - seconds * 1000;
-		
-		
-		return days + ":" + hours % 24 + ":" + minutes % 60 + ":" + seconds % 60 + "." + restMillis; 
+
+		return days + ":" + hours % 24 + ":" + minutes % 60 + ":" + seconds % 60 + "." + restMillis;
+	}
+
+	public LocalDate firstDayOfQuater(LocalDate date) {
+		LocalDate interim;
+		if (Arrays.asList(Month.FEBRUARY, Month.MAY, Month.AUGUST, Month.NOVEMBER).contains(date.getMonth())) {
+			interim = date.minusMonths(1);
+		} else if (Arrays.asList(Month.MARCH, Month.JUNE, Month.SEPTEMBER, Month.DECEMBER).contains(date.getMonth())) {
+			interim = date.minusMonths(2);
+		} else {
+			interim = date;
+		}
+		return interim.minusDays(date.getDayOfMonth() - 1);
+	}
+
+	public LocalDate lastDayOfQuater(LocalDate date) {
+		LocalDate interim;
+		if (Arrays.asList(Month.FEBRUARY, Month.MAY, Month.AUGUST, Month.NOVEMBER).contains(date.getMonth())) {
+			interim = date.plusMonths(1);
+		} else if (Arrays.asList(Month.JANUARY, Month.APRIL, Month.JULY, Month.OCTOBER).contains(date.getMonth())) {
+			interim = date.plusMonths(2);
+		} else {
+			interim = date;
+		}
+		return interim.plusMonths(1).minusDays(date.getDayOfMonth());
 	}
 
 }
