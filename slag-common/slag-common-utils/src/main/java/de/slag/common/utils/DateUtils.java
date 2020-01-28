@@ -82,7 +82,7 @@ public class DateUtils {
 		return days + ":" + hours % 24 + ":" + minutes % 60 + ":" + seconds % 60 + "." + restMillis;
 	}
 
-	public LocalDate firstDayOfQuater(LocalDate date) {
+	public static LocalDate firstDayOfQuater(LocalDate date) {
 		LocalDate interim;
 		if (Arrays.asList(Month.FEBRUARY, Month.MAY, Month.AUGUST, Month.NOVEMBER).contains(date.getMonth())) {
 			interim = date.minusMonths(1);
@@ -94,7 +94,7 @@ public class DateUtils {
 		return interim.minusDays(date.getDayOfMonth() - 1);
 	}
 
-	public LocalDate lastDayOfQuater(LocalDate date) {
+	public static LocalDate lastDayOfQuater(LocalDate date) {
 		LocalDate interim;
 		if (Arrays.asList(Month.FEBRUARY, Month.MAY, Month.AUGUST, Month.NOVEMBER).contains(date.getMonth())) {
 			interim = date.plusMonths(1);
