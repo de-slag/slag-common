@@ -3,6 +3,7 @@ package de.slag.common.db;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -36,6 +37,8 @@ public class HibernateSupportImpl implements HibernateSupport {
 
 	@Override
 	public <T> Optional<T> loadById(Long id, Class<T> persistentType) {
+		Objects.requireNonNull(id);
+		Objects.requireNonNull(persistentType);
 		try (final Session s = sessionFactory.openSession()) {
 			final Transaction tx = s.beginTransaction();
 			final T entity = s.get(persistentType, id);
