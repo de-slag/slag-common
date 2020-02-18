@@ -4,6 +4,11 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * @returns "true" if runtime parameter 'SlagDevelopmentEnabled=true'
+ *
+ */
+
 public class SlagDevelopment {
 
 	private static final Log LOG = LogFactory.getLog(SlagDevelopment.class);
@@ -26,7 +31,12 @@ public class SlagDevelopment {
 		}
 		return devEnabled;
 	}
+
 	
+	/**
+	 * @param propertyKey
+	 * @return
+	 */
 	public static boolean isEnabled(String propertyKey) {
 		return BooleanUtils.isTrue(Boolean.valueOf(System.getProperty(propertyKey)));
 	}
