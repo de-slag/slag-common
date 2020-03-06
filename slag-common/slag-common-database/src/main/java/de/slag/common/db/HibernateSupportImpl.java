@@ -43,6 +43,9 @@ public class HibernateSupportImpl implements HibernateSupport {
 			final Transaction tx = s.beginTransaction();
 			final T entity = s.get(persistentType, id);
 			tx.commit();
+			if (entity == null) {
+				return Optional.empty();
+			}
 			return Optional.of(entity);
 		}
 	}
