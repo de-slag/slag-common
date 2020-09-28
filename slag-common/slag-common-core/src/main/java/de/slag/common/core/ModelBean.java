@@ -2,6 +2,12 @@ package de.slag.common.core;
 
 import java.util.Date;
 
+/**
+ * Deprecated use package common-model instead
+ * @author sebastian
+ *
+ */
+@Deprecated
 public abstract class ModelBean {
 
 	private Long id;
