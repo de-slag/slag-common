@@ -106,12 +106,11 @@ class FileDataSource implements DataSource<Map<String, String>> {
 		File file = getFile(valueMap);
 		Collection<String> header = CsvUtils.getHeader(file.getAbsolutePath());
 		Collection<CSVRecord> records;
-//		try {
-			records = null;
-//			= CsvUtils.getRecords(file.getAbsolutePath(), header, true);
-//		} catch (IOException e) {
-//			throw new BaseException(e);
-//		}
+		try {
+			records = CsvUtils.getRecords(file.getAbsolutePath(), header, true);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
 		records.size();
 //		CsvUtils.asList(records, header);
 	}

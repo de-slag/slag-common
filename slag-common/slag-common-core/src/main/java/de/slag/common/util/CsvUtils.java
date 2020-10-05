@@ -76,6 +76,20 @@ public class CsvUtils {
 		csvPrinter.close();
 	}
 
+	public static Collection<CSVRecord> getRecords(final String filename, Collection<String> header,
+			boolean ignoreHeader) throws IOException {
+		Collection<CSVRecord> records = getRecords(filename, header);
+		return records.stream().filter(rec -> {
+			for (String head : header) {
+				String string = rec.get(head);
+				if (!head.equals(string)) {
+					return true;
+				}
+			}
+			return false;
+		}).collect(Collectors.toList());
+	}
+
 	public static Collection<CSVRecord> getRecords(final String filename, Collection<String> header)
 			throws IOException {
 		return getRecords(filename, header.toArray(new String[0]));
@@ -178,8 +192,7 @@ public class CsvUtils {
 
 	public static void write(List<List<String>> result, Path path) {
 		try {
-			write(result.stream().map(list -> (Collection<String>) list)
-					.collect(Collectors.toList()), path);
+			write(result.stream().map(list -> (Collection<String>) list).collect(Collectors.toList()), path);
 		} catch (IOException e) {
 			throw new BaseException(e);
 		}
