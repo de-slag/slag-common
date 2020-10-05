@@ -13,6 +13,13 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>de.slag.common</groupId>
+			<artifactId>slag-common-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>de.slag.common</groupId>
 			<artifactId>slag-common-base</artifactId>

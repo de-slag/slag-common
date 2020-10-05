@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import de.slag.common.base.BaseException;
 
 class LowerFunctionUtils {
-	
+
 	@SuppressWarnings("unchecked")
 	static <T> T convertFromString(Class<T> t, String value) {
 		if (String.class.isAssignableFrom(t)) {
@@ -19,7 +19,7 @@ class LowerFunctionUtils {
 		}
 		throw new BaseException("no supported type: " + t.getName());
 	}
-	
+
 	static String convertToString(Object returnValue) {
 		if (returnValue == null) {
 			return StringUtils.EMPTY;
@@ -31,8 +31,12 @@ class LowerFunctionUtils {
 		if (Boolean.class.isAssignableFrom(returnValueType)) {
 			return Boolean.toString((Boolean) returnValue);
 		}
-		if(Integer.class.isAssignableFrom(returnValueType)) {
+		if (Integer.class.isAssignableFrom(returnValueType)) {
 			return Integer.toString((Integer) returnValue);
+		}
+
+		if (Long.class.isAssignableFrom(returnValueType)) {
+			return Long.toString((Long) returnValue);
 		}
 		throw new BaseException("no supported type: " + returnValueType.getName());
 	}

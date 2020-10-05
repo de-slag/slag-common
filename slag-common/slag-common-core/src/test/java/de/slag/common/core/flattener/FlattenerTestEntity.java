@@ -10,6 +10,12 @@ public class FlattenerTestEntity {
 	private Integer number;
 	
 	private Boolean valid;
+	
+	public static FlattenerTestEntity create(Long id) {
+		FlattenerTestEntity flattenerTestEntity = new FlattenerTestEntity();
+		flattenerTestEntity.id = id;
+		return flattenerTestEntity;
+	}
 
 	public String getName() {
 		return name;
