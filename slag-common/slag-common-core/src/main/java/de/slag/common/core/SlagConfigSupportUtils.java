@@ -15,7 +15,7 @@ public final class SlagConfigSupportUtils {
 
 	private static final String DEFAULT_FILE_CONFIG = "DefaultFileConfig";
 
-	public static <T extends DatabaseConfig> T getDefault(final Class<T> configType) {
+	public static <T extends DatasourceConfig> T getDefault(final Class<T> configType) {
 
 		if (configType == DatabaseConfig.class) {
 			return configType.cast(defaultDatabase());
