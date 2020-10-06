@@ -74,6 +74,13 @@
 			<version>2.3.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.odftoolkit</groupId>
+			<artifactId>simple-odf</artifactId>
+			<!-- <exclusions> <exclusion> <artifactId>tools</artifactId> <groupId>com.sun</groupId> 
+				</exclusion> </exclusions> -->
+		</dependency>
+
 
 		<!-- <dependency> <groupId>de.slag.common</groupId> <artifactId>slag-common-context</artifactId> 
 			<version>${project.version}</version> </dependency> -->
