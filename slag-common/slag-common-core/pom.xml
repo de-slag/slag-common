@@ -19,7 +19,7 @@
 			<artifactId>slag-common-model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>de.slag.common</groupId>
 			<artifactId>slag-common-base</artifactId>
@@ -74,6 +74,46 @@
 			<version>2.3.2</version>
 		</dependency>
 
+
+		<!-- <dependency> <groupId>de.slag.common</groupId> <artifactId>slag-common-context</artifactId> 
+			<version>${project.version}</version> </dependency> -->
+
+		<dependency>
+			<groupId>de.slag.common</groupId>
+			<artifactId>slag-common-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
