@@ -11,11 +11,8 @@
 		<module>slag-common-base</module>
 		<module>slag-common-context</module>
 		<module>slag-common-core</module>
-		<module>slag-common-database</module>
 		<module>slag-common-model</module>
 		<module>slag-common-odf</module>
-		<module>slag-common-reflect</module>
-		<module>slag-common-test</module>
 		<module>slag-common-test-support</module>
 	</modules>
 
