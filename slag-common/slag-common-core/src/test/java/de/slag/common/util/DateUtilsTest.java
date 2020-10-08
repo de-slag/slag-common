@@ -1,5 +1,8 @@
 package de.slag.common.util;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -7,25 +10,22 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import de.slag.common.util.DateUtils;
+import org.junit.jupiter.api.Test;
 
 public class DateUtilsTest {
 
-	@Ignore
+	private static final Date DATE_2010_01_01_00_00 = new Date(1262300400000L);
+
 	@Test
 	public void testToCalendarLocalDate() {
 		final Calendar instance = Calendar.getInstance();
 		instance.set(2019, 3, 1, 0, 0, 0);
 		final Calendar calendar = DateUtils.toCalendar(LocalDate.of(2019, 4, 1));
-		Assert.assertThat(calendar, Matchers.is(instance));
+		assertThat(instance.getTimeInMillis(), Matchers.is(calendar.getTimeInMillis()));
+		assertThat(calendar, Matchers.is(instance));
 
 	}
 
-	@Ignore
 	@Test
 	public void testToCalendarDate() {
 		final Calendar instance = Calendar.getInstance();
@@ -34,38 +34,39 @@ public class DateUtilsTest {
 
 	}
 
-	@Ignore
 	@Test
 	public void testToDateLocalDateTime() {
-		final Date date = DateUtils.toDate(LocalDateTime.of(1970, 1, 1, 0, 0, 0));
+		final Date date = DateUtils.toDate(LocalDateTime.of(2010, 1, 1, 0, 0, 0));
+		assertThat(DATE_2010_01_01_00_00, Matchers.is(date));
 	}
 
-	@Ignore
 	@Test
 	public void testToDateLocalDate() {
-		Assert.assertTrue("not implemented", false);
+		LocalDate of = LocalDate.of(2010, 1, 1);
+		Date date = DateUtils.toDate(of);
+		assertThat(DATE_2010_01_01_00_00, Matchers.is(date));
 	}
 
 	@Test
-	@Ignore
 	public void testToLocalDate() {
-		Assert.assertTrue("not implemented", false);
+		
+		assertTrue(false, "not implemented");
 	}
 
 	@Test
-	@Ignore
 	public void testToLocalDateTime() {
-		Assert.assertTrue("not implemented", false);
+		
+		assertTrue(false, "not implemented");
 	}
 
 	@Test
 	public void testGetEasterSundayInt() {
-		Assert.assertThat(DateUtils.getEasterSunday(2019), Matchers.is(LocalDate.of(2019, 4, 21)));
+		assertThat(DateUtils.getEasterSunday(2019), Matchers.is(LocalDate.of(2019, 4, 21)));
 	}
 
 	@Test
 	public void testGetEasterSundayYear() {
-		Assert.assertThat(DateUtils.getEasterSunday(Year.of(2019)), Matchers.is(LocalDate.of(2019, 4, 21)));
+		assertThat(DateUtils.getEasterSunday(Year.of(2019)), Matchers.is(LocalDate.of(2019, 4, 21)));
 	}
 
 }

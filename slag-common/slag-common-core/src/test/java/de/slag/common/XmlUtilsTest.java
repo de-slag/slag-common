@@ -1,14 +1,14 @@
 package de.slag.common;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.function.Consumer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import de.slag.common.util.XmlUtils;
-
 public class XmlUtilsTest {
 	
 	private static final Log LOG = LogFactory.getLog(XmlUtilsTest.class);
@@ -28,7 +28,7 @@ public class XmlUtilsTest {
 		final String out = XmlUtils.out(newXmlTestEntity());
 		LOG.info(out);
 		final XmlTestEntity in = XmlUtils.in(XmlTestEntity.class, out);
-		Assert.assertNotNull(in);
+		assertNotNull(in);
 	}
 	
 	

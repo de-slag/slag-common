@@ -1,17 +1,15 @@
 package de.slag.common.core.datasource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FileDataSourceTest {
 
@@ -21,7 +19,7 @@ public class FileDataSourceTest {
 	
 	Map<String, String> valueMap = new HashMap<>();
 
-	@Before
+	@BeforeEach
 	public void init() {
 		ClassLoader classLoader = getClass().getClassLoader();
 		URL resource = classLoader.getResource("datasource");
@@ -35,7 +33,7 @@ public class FileDataSourceTest {
 		valueMap.put("TYPE", "Device");
 	}
 	
-	@After
+	@AfterEach
 	public void teardown() {
 		new File(readWriteFolderName).delete();
 	}

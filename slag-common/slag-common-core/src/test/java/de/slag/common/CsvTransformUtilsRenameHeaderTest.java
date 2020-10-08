@@ -1,15 +1,17 @@
 package de.slag.common;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import de.slag.common.base.BaseException;
 import de.slag.common.util.CsvTransformUtils;
-import de.slag.common.util.CsvUtils;
 import de.slag.common.util.CsvTransformUtils.CsvTransformException;
+import de.slag.common.util.CsvUtils;
 
 public class CsvTransformUtilsRenameHeaderTest {
 
@@ -21,24 +23,22 @@ public class CsvTransformUtilsRenameHeaderTest {
 		String headerFrom = "X-AXIS";
 		String headerTo = "other-AXIS";
 		CsvTransformUtils.renameHeader(inputFileName, outputFileName, headerFrom, headerTo);
-		
+
 		final Collection<String> header = CsvUtils.getHeader(outputFileName);
-		
-		Assert.assertTrue(header.contains(headerTo));
-		Assert.assertTrue(!header.contains(headerFrom));
+
+		assertTrue(header.contains(headerTo));
+		assertTrue(!header.contains(headerFrom));
 	}
 
-	@Test(expected = BaseException.class)
+	@Test
 	public void renameHeaderFailTest() throws CsvTransformException, FileNotFoundException {
 		String inputFileName = CsvTransformUtilsTest.absolutePathFromResource(CsvTransformUtilsTest.CSV_UTILS_TEST_CSV);
 		String outputFileName = CsvTransformUtilsTest.JAVA_IO_TEMPDIR + "rename_header"
 				+ CsvTransformUtilsTest.CSV_UTILS_TEST_CSV;
 		String headerFrom = "X-AXIS";
 		String headerTo = "Y-AXIS";
-		CsvTransformUtils.renameHeader(inputFileName, outputFileName, headerFrom, headerTo);
-		final Collection<String> header = CsvUtils.getHeader(outputFileName);
-		Assert.assertTrue(header.contains(headerTo));
-		Assert.assertTrue(!header.contains(headerFrom));
+		assertThrows(BaseException.class,
+				() -> CsvTransformUtils.renameHeader(inputFileName, outputFileName, headerFrom, headerTo));
 	}
 
 }

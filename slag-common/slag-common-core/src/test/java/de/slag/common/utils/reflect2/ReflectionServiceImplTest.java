@@ -1,12 +1,13 @@
 package de.slag.common.utils.reflect2;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Objects;
 import java.util.Optional;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import de.slag.common.utils.reflect2.ReflectionServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ReflectionServiceImplTest {
 
@@ -14,7 +15,7 @@ public class ReflectionServiceImplTest {
 
 	TestPojo testPojo;
 
-	@Before
+	@BeforeEach
 	public void init() {
 		testPojo = new TestPojo();
 		testPojo.setSvar("TesT");
@@ -23,20 +24,21 @@ public class ReflectionServiceImplTest {
 	@Test
 	public void testGetValue() {
 		Optional<String> value = reflectionServiceImpl.getValue(testPojo, "svar", String.class);
-		Assert.assertTrue(value.isPresent());
-		Assert.assertEquals("TesT", value.get());
+		assertTrue(value.isPresent());
+		assertEquals("TesT", value.get());
 	}
 
 	@Test
 	public void testSetValue() {
+		Objects.requireNonNull(testPojo, "TestPojo is null");
 		reflectionServiceImpl.setValue(testPojo, "svar", "z-test");
-		Assert.assertEquals("z-test", testPojo.getSvar());
+		assertEquals("z-test", testPojo.getSvar());
 	}
 
 	@Test
 	public void testGetType() {
 		Class<?> type = reflectionServiceImpl.getType(testPojo, "svar");
-		Assert.assertEquals(String.class, type);
+		assertEquals(String.class, type);
 	}
 
 	private class TestPojo {

@@ -1,14 +1,11 @@
 package de.slag.common.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.File;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import de.slag.common.util.FileHashUtils;
-import de.slag.common.util.ResourceUtils;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 public class FileHashUtilsTest {
 
 	private String expectedMd5 = "900150983cd24fb0d6963f7d28e17f72";
@@ -16,7 +13,7 @@ public class FileHashUtilsTest {
 	private File file1;
 	private File file2;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		this.file1 = ResourceUtils.getFileFromResources("file1.txt");
 		this.file2 = ResourceUtils.getFileFromResources("file2.txt");
@@ -24,15 +21,15 @@ public class FileHashUtilsTest {
 
 	@Test
 	public void testMd5() {
-		Assert.assertEquals(expectedMd5, FileHashUtils.md5(file1.getAbsolutePath()));
-		Assert.assertEquals(expectedMd5, FileHashUtils.md5(file2.getAbsolutePath()));
+		assertEquals(expectedMd5, FileHashUtils.md5(file1.getAbsolutePath()));
+		assertEquals(expectedMd5, FileHashUtils.md5(file2.getAbsolutePath()));
 	}
 
 	@Test
 	public void testSha256() {
 
-		Assert.assertEquals(expectedSha256, FileHashUtils.sha256(file1.getAbsolutePath()));
-		Assert.assertEquals(expectedSha256, FileHashUtils.sha256(file2.getAbsolutePath()));
+		assertEquals(expectedSha256, FileHashUtils.sha256(file1.getAbsolutePath()));
+		assertEquals(expectedSha256, FileHashUtils.sha256(file2.getAbsolutePath()));
 	}
 
 }

@@ -3,61 +3,62 @@ package de.slag.common;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import de.slag.common.utils.reflect2.ReflectionUtils;
 
 public class ReflectionUtilsTest {
-	
+
 	private TestEntity testEntity;
-	
-	@Before
+
+	@BeforeEach
 	public void setUp() {
 		testEntity = new TestEntity();
 	}
 
 	@Test
 	public void testDetermineAccessibleProperties() {
-		Assert.assertEquals(ReflectionUtils.determineAccessibleProperties(testEntity.getClass()).size(), 1);
+		assertEquals(ReflectionUtils.determineAccessibleProperties(testEntity.getClass()).size(), 1);
 	}
 
 	@Test
 	public void testDetermineSetterClassOfQString() {
 		Collection<Method> determineSetters = ReflectionUtils.determineSetters(testEntity.getClass());
-		Assert.assertEquals(1, determineSetters.size());
+		assertEquals(1, determineSetters.size());
 	}
 
 	@Test
 	public void testDetermineGetterClassOfQString() {
 		Collection<Method> determineGetters = ReflectionUtils.determineGetters(testEntity.getClass());
-		Assert.assertEquals(2,determineGetters.size());
+		assertEquals(2, determineGetters.size());
 	}
 
 	@Test
 	public void testSetterNameToPropertyName() {
-		Assert.assertEquals("xyz", ReflectionUtils.setterNameToPropertyName("setXyz").get());
+		assertEquals("xyz", ReflectionUtils.setterNameToPropertyName("setXyz").get());
 	}
 
 	@Test
 	public void testGetterNameToPropertyName() {
-		Assert.assertEquals("xyz", ReflectionUtils.getterNameToPropertyName("getXyz").get());
-		Assert.assertEquals("xyz", ReflectionUtils.getterNameToPropertyName("isXyz").get());
+		assertEquals("xyz", ReflectionUtils.getterNameToPropertyName("getXyz").get());
+		assertEquals("xyz", ReflectionUtils.getterNameToPropertyName("isXyz").get());
 	}
 
 	@Test
 	public void testDetermineSetterClassOfQ() {
-		Assert.assertTrue(ReflectionUtils.determineSetter(testEntity.getClass(), "name").isPresent());
+		assertTrue(ReflectionUtils.determineSetter(testEntity.getClass(), "name").isPresent());
 	}
 
 	@Test
 	public void testDetermineGetterClassOfQ() {
-		Assert.assertTrue(ReflectionUtils.determineGetter(testEntity.getClass(), "name").isPresent());
+		assertTrue(ReflectionUtils.determineGetter(testEntity.getClass(), "name").isPresent());
 	}
-	
+
 	@Test
 	public void testDetermineClasses() {
-		Assert.assertEquals(2, ReflectionUtils.determineClasses(testEntity.getClass()).size());
+		assertEquals(2, ReflectionUtils.determineClasses(testEntity.getClass()).size());
 	}
 }

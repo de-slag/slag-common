@@ -2,6 +2,7 @@ package de.slag.common.utils.reflect2;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.Optional;
 
 import de.slag.common.base.BaseException;
@@ -30,6 +31,9 @@ public class ReflectionServiceImpl {
 	}
 
 	private Method getter(Object obj, String attributeName) {
+		Objects.requireNonNull(obj, "Object is null");
+		Objects.requireNonNull(attributeName, "attribute name is null");
+		
 		final Optional<Method> determineGetter = ReflectionUtils.determineGetter(obj.getClass(), attributeName);
 		if (!determineGetter.isPresent()) {
 			throw new BaseException("no getter found for " + obj.getClass() + ", " + attributeName);
@@ -48,6 +52,9 @@ public class ReflectionServiceImpl {
 	}
 
 	private Method setter(Object obj, String attributeName) {
+		Objects.requireNonNull(obj, "Object is null");
+		Objects.requireNonNull(attributeName, "attribute name is null");
+		
 		final Optional<Method> determineSetter = ReflectionUtils.determineSetter(obj.getClass(), attributeName);
 		if (!determineSetter.isPresent()) {
 			throw new BaseException("no setter found for " + obj.getClass() + ", " + attributeName);
@@ -56,6 +63,10 @@ public class ReflectionServiceImpl {
 	}
 
 	Class<?> getType(Object obj, String attribute) {
+		Objects.requireNonNull(obj, "Object is null");
+		Objects.requireNonNull(attribute, "attribute name is null");
+		
+		
 		Method getter = getter(obj, attribute);
 		Method setter = setter(obj, attribute);
 

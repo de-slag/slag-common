@@ -1,12 +1,13 @@
 package de.slag.common.core.flattener;
 
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.BooleanUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FlattenerTest {
 

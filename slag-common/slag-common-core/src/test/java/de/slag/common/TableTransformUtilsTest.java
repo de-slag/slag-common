@@ -1,14 +1,18 @@
 package de.slag.common;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import de.slag.common.base.BaseException;
 import de.slag.common.util.TableTransformUtils;
@@ -16,126 +20,123 @@ import de.slag.common.util.TableTransformUtils;
 public class TableTransformUtilsTest {
 
 	private List<List<String>> source = source();
-	
+
 	@Test
 	public void testRemoveColumns() {
-		final List<List<String>> result = TableTransformUtils.removeColumns(source, 0,1);
-		
-				
-		Assert.assertThat(result.get(0).get(0), Matchers.is("C"));				
-		Assert.assertThat(result.get(1).get(0), Matchers.is("3"));				
-		Assert.assertThat(result.get(2).get(0), Matchers.is("4"));				
-		Assert.assertThat(result.get(3).get(0), Matchers.is("5"));
+		final List<List<String>> result = TableTransformUtils.removeColumns(source, 0, 1);
+
+		assertThat(result.get(0).get(0), Matchers.is("C"));
+		assertThat(result.get(1).get(0), Matchers.is("3"));
+		assertThat(result.get(2).get(0), Matchers.is("4"));
+		assertThat(result.get(3).get(0), Matchers.is("5"));
 	}
 
 	@Test
 	public void testRemoveColumnsWithoutHeader() {
 		final List<List<String>> renameHeader = TableTransformUtils.renameHeader(source, "B", null);
-		final List<List<String>> result = TableTransformUtils
-				.removeColumnsWithoutHeader(renameHeader);
-		Assert.assertNotNull(result);
-		Assert.assertThat(result.get(0).size(), Matchers.is(2));
-		
-		Assert.assertThat(result.get(0).get(0), Matchers.is("A"));		
-		Assert.assertThat(result.get(0).get(1), Matchers.is("C"));
+		final List<List<String>> result = TableTransformUtils.removeColumnsWithoutHeader(renameHeader);
+		assertNotNull(result);
+		assertThat(result.get(0).size(), Matchers.is(2));
 
-		Assert.assertThat(result.get(1).get(0), Matchers.is("1"));		
-		Assert.assertThat(result.get(1).get(1), Matchers.is("3"));
+		assertThat(result.get(0).get(0), Matchers.is("A"));
+		assertThat(result.get(0).get(1), Matchers.is("C"));
 
-		Assert.assertThat(result.get(2).get(0), Matchers.is("2"));		
-		Assert.assertThat(result.get(2).get(1), Matchers.is("4"));
+		assertThat(result.get(1).get(0), Matchers.is("1"));
+		assertThat(result.get(1).get(1), Matchers.is("3"));
 
-		Assert.assertThat(result.get(3).get(0), Matchers.is("3"));		
-		Assert.assertThat(result.get(3).get(1), Matchers.is("5"));
-		
-	
+		assertThat(result.get(2).get(0), Matchers.is("2"));
+		assertThat(result.get(2).get(1), Matchers.is("4"));
+
+		assertThat(result.get(3).get(0), Matchers.is("3"));
+		assertThat(result.get(3).get(1), Matchers.is("5"));
+
 	}
-	
+
 	@Test
 	public void testRenameHeader_ToNull() {
 		final List<List<String>> result = TableTransformUtils.renameHeader(source, "A", null);
-		Assert.assertNotNull(result);
-		Assert.assertNull(result.get(0).get(0));
+		assertNotNull(result);
+		assertNull(result.get(0).get(0));
 	}
 
 	@Test
 	public void testRenameHeader() {
 		final List<List<String>> result = TableTransformUtils.renameHeader(source, "A", "X");
-		Assert.assertNotNull(result);
-		Assert.assertThat(result.get(0).get(0), Matchers.is("X"));
+		assertNotNull(result);
+		assertThat(result.get(0).get(0), Matchers.is("X"));
 	}
 
-	@Test(expected = BaseException.class)
+	@Test
 	public void testRenameHeader_HeaderNotFound() {
-		TableTransformUtils.renameHeader(source, null, "X");
+		assertThrows(BaseException.class, () -> TableTransformUtils.renameHeader(source, null, "X"));
 	}
 
-	@Test(expected = BaseException.class)
+	@Test
 	public void testRenameHeader_HeaderExists() {
-		TableTransformUtils.renameHeader(source, null, "A");
+		assertThrows(BaseException.class, ()->TableTransformUtils.renameHeader(source, null, "A"));
 	}
 
 	@Test
 	public void testCopyExcept_ColLine() {
 		List<List<String>> copyExcept = TableTransformUtils.copyExcept(source, 2, 1);
 
-		Assert.assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
-		Assert.assertThat(copyExcept.get(0).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
+		assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
+		assertThat(copyExcept.get(0).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
 
-		Assert.assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
-		Assert.assertThat(copyExcept.get(1).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
+		assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
+		assertThat(copyExcept.get(1).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
 
-		Assert.assertThat(copyExcept.get(2).get(0), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(2).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(2).get(2), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(0), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(2), Matchers.is(StringUtils.EMPTY));
 
-		Assert.assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
-		Assert.assertThat(copyExcept.get(3).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
+		assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
+		assertThat(copyExcept.get(3).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
 	}
 
 	@Test
 	public void testCopyExcept_Col() {
 		List<List<String>> copyExcept = TableTransformUtils.copyExcept(source, null, 1);
 
-		Assert.assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
-		Assert.assertThat(copyExcept.get(0).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
+		assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
+		assertThat(copyExcept.get(0).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
 
-		Assert.assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
-		Assert.assertThat(copyExcept.get(1).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
+		assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
+		assertThat(copyExcept.get(1).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
 
-		Assert.assertThat(copyExcept.get(2).get(0), Matchers.is("2"));
-		Assert.assertThat(copyExcept.get(2).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(2).get(2), Matchers.is("4"));
+		assertThat(copyExcept.get(2).get(0), Matchers.is("2"));
+		assertThat(copyExcept.get(2).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(2), Matchers.is("4"));
 
-		Assert.assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
-		Assert.assertThat(copyExcept.get(3).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
+		assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
+		assertThat(copyExcept.get(3).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
 	}
 
 	@Test
 	public void testCopyExcept_Line() {
 		List<List<String>> copyExcept = TableTransformUtils.copyExcept(source, 2, null);
 
-		Assert.assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
-		Assert.assertThat(copyExcept.get(0).get(1), Matchers.is("B"));
-		Assert.assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
+		assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
+		assertThat(copyExcept.get(0).get(1), Matchers.is("B"));
+		assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
 
-		Assert.assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
-		Assert.assertThat(copyExcept.get(1).get(1), Matchers.is("2"));
-		Assert.assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
+		assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
+		assertThat(copyExcept.get(1).get(1), Matchers.is("2"));
+		assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
 
-		Assert.assertThat(copyExcept.get(2).get(0), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(2).get(1), Matchers.is(StringUtils.EMPTY));
-		Assert.assertThat(copyExcept.get(2).get(2), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(0), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(1), Matchers.is(StringUtils.EMPTY));
+		assertThat(copyExcept.get(2).get(2), Matchers.is(StringUtils.EMPTY));
 
-		Assert.assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
-		Assert.assertThat(copyExcept.get(3).get(1), Matchers.is("4"));
-		Assert.assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
+		assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
+		assertThat(copyExcept.get(3).get(1), Matchers.is("4"));
+		assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
 	}
 
 	@Test
@@ -143,25 +144,25 @@ public class TableTransformUtilsTest {
 		final List<List<String>> source = source();
 		List<List<String>> copyExcept = TableTransformUtils.copyExcept(source, null, null);
 
-		Assert.assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
-		Assert.assertThat(copyExcept.get(0).get(1), Matchers.is("B"));
-		Assert.assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
+		assertThat(copyExcept.get(0).get(0), Matchers.is("A"));
+		assertThat(copyExcept.get(0).get(1), Matchers.is("B"));
+		assertThat(copyExcept.get(0).get(2), Matchers.is("C"));
 
-		Assert.assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
-		Assert.assertThat(copyExcept.get(1).get(1), Matchers.is("2"));
-		Assert.assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
+		assertThat(copyExcept.get(1).get(0), Matchers.is("1"));
+		assertThat(copyExcept.get(1).get(1), Matchers.is("2"));
+		assertThat(copyExcept.get(1).get(2), Matchers.is("3"));
 
-		Assert.assertThat(copyExcept.get(2).get(0), Matchers.is("2"));
-		Assert.assertThat(copyExcept.get(2).get(1), Matchers.is("3"));
-		Assert.assertThat(copyExcept.get(2).get(2), Matchers.is("4"));
+		assertThat(copyExcept.get(2).get(0), Matchers.is("2"));
+		assertThat(copyExcept.get(2).get(1), Matchers.is("3"));
+		assertThat(copyExcept.get(2).get(2), Matchers.is("4"));
 
-		Assert.assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
-		Assert.assertThat(copyExcept.get(3).get(1), Matchers.is("4"));
-		Assert.assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
+		assertThat(copyExcept.get(3).get(0), Matchers.is("3"));
+		assertThat(copyExcept.get(3).get(1), Matchers.is("4"));
+		assertThat(copyExcept.get(3).get(2), Matchers.is("5"));
 
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		source = source();
 	}

@@ -1,5 +1,7 @@
 package de.slag.common.db.test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,32 +17,28 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import de.slag.common.db.hibernate.HibernateUtils;
-
 public class H2Test {
 
-	@Before
+	@BeforeEach
 	public void setup() throws SQLException {
-		Assert.assertNotNull(new org.h2.Driver());
-		// Assert.assertNotNull(new com.mysql.cj.jdbc.Driver());
+		assertNotNull(new org.h2.Driver());
+		assertNotNull(new com.mysql.cj.jdbc.Driver());
 	}
 
-	@Ignore
 	@Test
 	public void test() throws SQLException {
 		try (final Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
-			Assert.assertTrue(connection != null);
+			assertTrue(connection != null);
 			final String schema = connection.getSchema();
-			Assert.assertNotNull(schema);
+			assertNotNull(schema);
 		}
 	}
 
-	@Ignore
 	@Test
 	public void hibernateTest() {
 		Properties p = new Properties();
@@ -81,7 +79,7 @@ public class H2Test {
 
 		properties.entrySet().forEach(e -> out(e));
 
-		final SessionFactory buildSessionFactory = configuration.buildSessionFactory();
+		assertNotNull(configuration.buildSessionFactory());
 	}
 
 	private void out(Object o) {
@@ -120,7 +118,7 @@ public class H2Test {
 
 		// Create SessionFactory
 		final SessionFactory build = metadata.getSessionFactoryBuilder().build();
-		Assert.assertNotNull(build);
+		assertNotNull(build);
 
 	}
 

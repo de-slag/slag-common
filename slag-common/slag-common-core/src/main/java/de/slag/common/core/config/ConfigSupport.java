@@ -39,10 +39,11 @@ public class ConfigSupport {
 	}
 
 	public Optional<String> getValue(String key) {
-		if(!properties.contains(key)) {
+		String property = properties.getProperty(key);
+		if(!properties.containsKey(key)) {
 			return Optional.empty();
 		}
-		return Optional.of(properties.getProperty(key));
+		return Optional.of(property);
 	}
 
 }

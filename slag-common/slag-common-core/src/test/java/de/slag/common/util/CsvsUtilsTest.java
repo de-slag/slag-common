@@ -1,5 +1,5 @@
 package de.slag.common.util;
-
+import static org.hamcrest.MatcherAssert.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,12 +8,12 @@ import java.util.Set;
 
 import org.apache.commons.csv.CSVRecord;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import de.slag.common.util.CsvsUtils;
-import de.slag.common.util.ResourceUtils;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class CsvsUtilsTest {
 
@@ -21,17 +21,18 @@ public class CsvsUtilsTest {
 
 	private File baseDir;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		baseDir = ResourceUtils.getFileFromResources(BASE_RESOURCE_DIR);
 	}
 
+	
 	@Test
 	public void test() {
 		final Map<String, Collection<CSVRecord>> csvs = CsvsUtils.get(baseDir);
-		Assert.assertNotNull(csvs);
-		Assert.assertThat(csvs.size(), Matchers.is(1));
-		csvs.forEach((s, c) -> Assert.assertTrue(!c.isEmpty()));
+		assertNotNull(csvs);
+		assertThat(csvs.size(), Matchers.is(1));
+		csvs.forEach((s, c) -> assertTrue(!c.isEmpty()));
 
 		final Set<String> keySet = csvs.keySet();
 		final ArrayList<String> arrayList = new ArrayList<>();
@@ -39,7 +40,7 @@ public class CsvsUtilsTest {
 
 		final String string = arrayList.get(0);
 		final Collection<CSVRecord> collection = csvs.get(string);
-		Assert.assertThat(collection.size(), Matchers.is(3));
+		assertThat(collection.size(), Matchers.is(3));
 
 	}
 

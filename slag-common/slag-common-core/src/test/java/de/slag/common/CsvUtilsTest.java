@@ -1,6 +1,7 @@
 package de.slag.common;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,8 +9,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.apache.commons.csv.CSVRecord;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import de.slag.common.util.CsvUtils;
 import de.slag.common.util.ResourceUtils;
@@ -26,10 +26,10 @@ public class CsvUtilsTest {
 
 		final Collection<String> header = CsvUtils.getHeader(absolutePath);
 
-		Assert.assertTrue(expected.size() == header.size());
+		assertTrue(expected.size() == header.size());
 
 		for (String columnHeader : header) {
-			Assert.assertTrue(expected.contains(columnHeader));
+			assertTrue(expected.contains(columnHeader));
 		}
 	}
 	

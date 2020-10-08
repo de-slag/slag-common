@@ -1,8 +1,6 @@
 package de.slag.common.core;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-
 import java.util.function.Supplier;
 
 /**

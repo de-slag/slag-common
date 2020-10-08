@@ -1,5 +1,7 @@
 package de.slag.core.migration;
 
+import static org.hamcrest.MatcherAssert.*;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Consumer;
@@ -7,9 +9,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import de.slag.common.core.migration.DataMigrationUtils;
 import de.slag.common.core.migration.MigrationDataStore;
@@ -27,10 +29,10 @@ public class DataMigrationUtilsBTest {
 	@Test
 	public void test() {
 		DataMigrationUtils.migrate(from, to, transformator);
-		Assert.assertThat(processor.get(), Matchers.is("TestEntityA [name=Mr.X]"));
+		assertThat(processor.get(), Matchers.is("TestEntityA [name=Mr.X]"));
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		from = new MigrationDataStore<DataMigrationUtilsBTest.TestEntityA>() {
 
