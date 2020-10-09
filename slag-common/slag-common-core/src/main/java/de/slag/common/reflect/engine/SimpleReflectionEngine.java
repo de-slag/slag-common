@@ -19,7 +19,7 @@ import de.slag.common.base.BaseException;
 import de.slag.common.reflect.MethodFilters;
 
 public class SimpleReflectionEngine {
-	
+
 	private static final Log LOG = LogFactory.getLog(SimpleReflectionEngine.class);
 
 	public void mapValues(Object source, Object target) {
@@ -28,8 +28,8 @@ public class SimpleReflectionEngine {
 
 	public void mapValues(Object source, Object target, Collection<String> ignoredAttributes) {
 		final Map<String, Object> values = getValues(source, ignoredAttributes);
-		
-		LOG.debug("set values: "+ String.join("; ", values.keySet()));
+
+		LOG.debug("set values: " + String.join("; ", values.keySet()));
 
 		setValues(target, values);
 	}
@@ -57,14 +57,14 @@ public class SimpleReflectionEngine {
 	}
 
 	private Map<String, Object> getValues(Object o, Collection<String> ignoredAttributes) {
-		
-		final Collection<String> ignoredAttributes0 = new ArrayList<String>(ignoredAttributes);
+
+		final Collection<String> ignoredAttributes0 = new ArrayList<String>(
+				ignoredAttributes.stream().map(ignAtt -> ignAtt.toUpperCase()).collect(Collectors.toList()));
 		ignoredAttributes0.add("CLASS");
 
 		final List<Method> allMethods = Arrays.asList(o.getClass().getMethods());
 		List<Method> getters = allMethods.stream().filter(MethodFilters.NO_PARAMETER)
-				.filter(MethodFilters.WITH_RETURN_TYPE).filter(MethodFilters.GETTER_NAME)
-				.collect(Collectors.toList());
+				.filter(MethodFilters.WITH_RETURN_TYPE).filter(MethodFilters.GETTER_NAME).collect(Collectors.toList());
 
 		final Map<String, Object> valueMap = new HashMap<>();
 
