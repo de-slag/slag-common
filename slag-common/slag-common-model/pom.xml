@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>de.slag.common</groupId>
 		<artifactId>slag-common</artifactId>
-		<version>0.2.1</version>
+		<version>0.3.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>slag-common-model</artifactId>
-		<properties>
+	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
