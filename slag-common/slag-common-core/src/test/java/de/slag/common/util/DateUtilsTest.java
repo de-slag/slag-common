@@ -9,8 +9,8 @@ import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.xerces.impl.xpath.regex.Match;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class DateUtilsTest {
@@ -27,7 +27,6 @@ public class DateUtilsTest {
 		long actualTimeInMillis = calendar.getTimeInMillis();
 		assertThat(instance.getTimeInMillis(), Matchers.greaterThanOrEqualTo(actualTimeInMillis));
 		assertThat(instance.getTimeInMillis(), Matchers.lessThanOrEqualTo(actualTimeInMillis + TOLERANCE_IN_MS));
-		
 
 	}
 
@@ -52,12 +51,14 @@ public class DateUtilsTest {
 		assertThat(DATE_2010_01_01_00_00, Matchers.is(date));
 	}
 
+	@Disabled
 	@Test
 	public void testToLocalDate() {
 
 		assertTrue(false, "not implemented");
 	}
 
+	@Disabled
 	@Test
 	public void testToLocalDateTime() {
 

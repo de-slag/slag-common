@@ -3,6 +3,7 @@ package de.slag.common.db.test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //import de.slag.common.context.SlagContext;
@@ -20,6 +21,7 @@ public class DaoTest {
 	}
 
 	@Test
+	@Disabled
 	public void test() {
 		final TestEntity testEntity = createTestEntity();
 		testDao.save(testEntity);

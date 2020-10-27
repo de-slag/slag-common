@@ -30,6 +30,7 @@ public class H2Test {
 		assertNotNull(new com.mysql.cj.jdbc.Driver());
 	}
 
+	@Disabled
 	@Test
 	public void test() throws SQLException {
 		try (final Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "sa")) {
@@ -39,6 +40,7 @@ public class H2Test {
 		}
 	}
 
+	@Disabled
 	@Test
 	public void hibernateTest() {
 		Properties p = new Properties();
@@ -86,6 +88,7 @@ public class H2Test {
 		System.out.println(o);
 	}
 
+	@Disabled
 	@Test
 	public void testSessionFactory() {
 

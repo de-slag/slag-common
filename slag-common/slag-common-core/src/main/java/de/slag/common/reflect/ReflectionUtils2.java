@@ -12,6 +12,14 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * This utils are not running very well. It will be replaced in one of the next
+ * releases.
+ * 
+ * @author sebastian
+ *
+ */
+@Deprecated
 public class ReflectionUtils2 {
 
 	public static Optional<Field> getField(Object o, String fieldname) {
