@@ -14,8 +14,13 @@
 		<module>slag-common-model</module>
 		<module>slag-common-test-support</module>
 	</modules>
-	
+
 	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub DE-SLAG Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/de-slag/slag-common</url>
+		</repository>
 	</distributionManagement>
 
 	<properties>
