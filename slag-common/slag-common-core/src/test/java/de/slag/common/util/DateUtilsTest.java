@@ -2,14 +2,18 @@ package de.slag.common.util;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.BooleanSupplier;
 
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +23,15 @@ public class DateUtilsTest {
 
 	private static final Long TOLERANCE_IN_MS = 999L;
 
+	@BeforeEach
+	void assumeTimeZone() {
+		final ZoneId currentZoneId = ZoneId.of("Europe/Berlin");
+		BooleanSupplier a = () -> {
+			return ZoneId.systemDefault().equals(currentZoneId);
+		};
+		assumeTrue(a);
+	}
+
 	@Test
 	public void testToCalendarLocalDate() {
 		final Calendar instance = Calendar.getInstance();
@@ -27,7 +40,6 @@ public class DateUtilsTest {
 		long actualTimeInMillis = calendar.getTimeInMillis();
 		assertThat(instance.getTimeInMillis(), Matchers.greaterThanOrEqualTo(actualTimeInMillis));
 		assertThat(instance.getTimeInMillis(), Matchers.lessThanOrEqualTo(actualTimeInMillis + TOLERANCE_IN_MS));
-		
 
 	}
 
