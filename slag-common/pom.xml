@@ -30,7 +30,7 @@
 		<spring.context.version>5.0.8.RELEASE</spring.context.version>
 		<mysql.version>6.0.6</mysql.version>
 		<mariadb.driver.version>2.2.6</mariadb.driver.version>
-		<log4j.version>2.11.1</log4j.version>
+		<log4j.version>2.13.3</log4j.version>
 		<sun.jsf.version>2.2.16</sun.jsf.version>
 		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
 		<javax.servlet.servlet.api.version>2.5</javax.servlet.servlet.api.version>
