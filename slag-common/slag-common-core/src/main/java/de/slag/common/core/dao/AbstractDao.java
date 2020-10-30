@@ -1,6 +1,7 @@
 package de.slag.common.core.dao;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javax.annotation.PostConstruct;
@@ -44,5 +45,16 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 		EntityBeanUtils.setDelete(e);
 		save(e);
 	}
+	
+	@Override
+	public Optional<E> load(Long id) {
+		E e = (E) dataSource.read(getType(), id);
+		if(e == null) {
+			return Optional.empty();
+		}
+		return Optional.of(e);
+	}
+
+	protected abstract Class<? extends EntityBean> getType();
 
 }
