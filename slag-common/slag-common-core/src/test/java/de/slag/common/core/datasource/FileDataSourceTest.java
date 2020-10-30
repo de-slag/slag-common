@@ -40,13 +40,13 @@ public class FileDataSourceTest {
 
 	@Test
 	public void createEmptyFileDataSourceTest() {
-		FileDataSource fileDataSource = new FileDataSource(readWriteFolderName);
+		OldFileDataSource fileDataSource = new OldFileDataSource(readWriteFolderName);
 		assertEquals(Long.valueOf(0L), fileDataSource.getMaxId());
 	}
 
 	@Test
 	public void createFileDataSourceTest() {
-		FileDataSource fileDataSource = new FileDataSource(readonlyFolderName);
+		OldFileDataSource fileDataSource = new OldFileDataSource(readonlyFolderName);
 		assertEquals(Long.valueOf(4L), fileDataSource.getMaxId());
 	}
 
@@ -54,20 +54,20 @@ public class FileDataSourceTest {
 	public void getFileNameTest() {
 		Map<String, String> valueMap = new HashMap<>();
 		valueMap.put("TYPE", "Device");
-		String fileName = new FileDataSource(readWriteFolderName).getFileName(valueMap);
+		String fileName = new OldFileDataSource(readWriteFolderName).getFileName(valueMap);
 		assertEquals(readWriteFolderName + "/Device.csv", fileName);
 	}
 	
 	@Test
 	public void getFileTest() {
-		File file = new FileDataSource(readWriteFolderName).getFile(valueMap);
+		File file = new OldFileDataSource(readWriteFolderName).getFile(valueMap);
 		assertNotNull(file);
 		assertTrue(file.exists());
 	}
 	
 	@Test
 	public void test() {
-		new FileDataSource(readWriteFolderName).create(valueMap);
+		new OldFileDataSource(readWriteFolderName).create(valueMap);
 	}
 
 }
