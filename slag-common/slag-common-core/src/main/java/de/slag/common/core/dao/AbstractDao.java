@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import de.slag.common.core.datasource.DataSource;
 import de.slag.common.core.datasource.DataSourceBuilder;
+import de.slag.common.db.h2.InMemoryProperties;
 import de.slag.common.model.EntityBean;
 import de.slag.common.model.EntityBeanUtils;
 
@@ -18,7 +19,15 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 
 	@PostConstruct
 	public void init() {
-		dataSource = new DataSourceBuilder().withRegisteredClasses(registeredEntitiesSupplier.get()).build();
+		
+		// TODO configured datasource
+		dataSource = new DataSourceBuilder()
+				.withHibernateDialect(InMemoryProperties.DIALECT)
+				.withUser(InMemoryProperties.USER)
+				.withPassword(InMemoryProperties.PASSWORD)
+				.withUrl(InMemoryProperties.URL)
+				.withDriver(InMemoryProperties.DRIVER)
+				.withRegisteredClasses(registeredEntitiesSupplier.get()).build();
 	}
 
 	@Override
