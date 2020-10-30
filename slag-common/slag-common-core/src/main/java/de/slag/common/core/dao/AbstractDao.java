@@ -3,6 +3,8 @@ package de.slag.common.core.dao;
 import java.util.Collection;
 import java.util.function.Supplier;
 
+import javax.annotation.PostConstruct;
+
 import de.slag.common.core.datasource.DataSource;
 import de.slag.common.core.datasource.DataSourceBuilder;
 import de.slag.common.model.EntityBean;
@@ -14,10 +16,9 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 
 	protected static Supplier<Collection<Class<? extends EntityBean>>> registeredEntitiesSupplier;
 
-	static {
-		dataSource = new DataSourceBuilder()
-				.withRegisteredClasses(registeredEntitiesSupplier.get())
-				.build();
+	@PostConstruct
+	public void init() {
+		dataSource = new DataSourceBuilder().withRegisteredClasses(registeredEntitiesSupplier.get()).build();
 	}
 
 	@Override
