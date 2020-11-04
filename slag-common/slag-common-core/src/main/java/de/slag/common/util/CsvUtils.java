@@ -117,9 +117,10 @@ public class CsvUtils {
 		}
 		final CSVFormat format;
 		if (header != null && header.length > 0) {
-			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withHeader(header);
+			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withIgnoreEmptyLines().withHeader(header);
 		} else {
-			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim();
+			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withIgnoreEmptyLines().withFirstRecordAsHeader()
+					.withIgnoreHeaderCase().withTrim();
 		}
 
 		CSVParser parse;
