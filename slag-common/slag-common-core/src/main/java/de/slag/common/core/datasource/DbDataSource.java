@@ -1,5 +1,6 @@
 package de.slag.common.core.datasource;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import de.slag.common.db.HibernateSupport;
@@ -38,7 +39,10 @@ class DbDataSource implements DataSource<EntityBean> {
 	@Override
 	public void delete(EntityBean t) {
 		throw new UnsupportedOperationException("delete");
-
 	}
 
+	@Override
+	public Collection<Long> findAllIds(Class<? extends EntityBean> type) {
+		return hibernateSupport.findAllIds(type);
+	}
 }

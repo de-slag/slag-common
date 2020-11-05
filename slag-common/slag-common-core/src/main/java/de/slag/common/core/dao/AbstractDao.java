@@ -48,11 +48,22 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 	
 	@Override
 	public Optional<E> load(Long id) {
+		return loadById(id);
+	}
+	
+	@Override
+	public Optional<E> loadById(Long id) {
+		@SuppressWarnings("unchecked")
 		E e = (E) dataSource.read(getType(), id);
 		if(e == null) {
 			return Optional.empty();
 		}
 		return Optional.of(e);
+	}
+	
+	@Override
+	public Collection<Long> findAllIds() {
+		return dataSource.findAllIds(getType());
 	}
 
 	protected abstract Class<? extends EntityBean> getType();
