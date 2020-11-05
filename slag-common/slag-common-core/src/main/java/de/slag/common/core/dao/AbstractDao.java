@@ -2,7 +2,9 @@ package de.slag.common.core.dao;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -20,14 +22,11 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 
 	@PostConstruct
 	public void init() {
-		
+
 		// TODO configured datasource
-		dataSource = new DataSourceBuilder()
-				.withHibernateDialect(InMemoryProperties.DIALECT)
-				.withUser(InMemoryProperties.USER)
-				.withPassword(InMemoryProperties.PASSWORD)
-				.withUrl(InMemoryProperties.URL)
-				.withDriver(InMemoryProperties.DRIVER)
+		dataSource = new DataSourceBuilder().withHibernateDialect(InMemoryProperties.DIALECT)
+				.withUser(InMemoryProperties.USER).withPassword(InMemoryProperties.PASSWORD)
+				.withUrl(InMemoryProperties.URL).withDriver(InMemoryProperties.DRIVER)
 				.withRegisteredClasses(registeredEntitiesSupplier.get()).build();
 	}
 
@@ -45,25 +44,41 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 		EntityBeanUtils.setDelete(e);
 		save(e);
 	}
-	
+
 	@Override
 	public Optional<E> load(Long id) {
 		return loadById(id);
 	}
-	
+
 	@Override
 	public Optional<E> loadById(Long id) {
 		@SuppressWarnings("unchecked")
 		E e = (E) dataSource.read(getType(), id);
-		if(e == null) {
+		if (e == null) {
 			return Optional.empty();
 		}
 		return Optional.of(e);
 	}
-	
+
 	@Override
 	public Collection<Long> findAllIds() {
 		return dataSource.findAllIds(getType());
+	}
+
+	@Override
+	public Collection<E> findAll() {
+		return findAllIds().stream()
+				.map(id -> loadById(id))
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Collection<E> findAllBy(Predicate<E> filter) {
+		return findAll().stream()
+				.filter(e -> filter.test(e))
+				.collect(Collectors.toList());
 	}
 
 	protected abstract Class<? extends EntityBean> getType();
