@@ -24,7 +24,13 @@ public interface Dao<E extends EntityBean> {
 
 	Collection<E> findAll();
 
+	/**
+	 * use 'findBy(Predicate)' instead
+	 */
+	@Deprecated
 	Collection<E> findAllBy(Predicate<E> filter);
+
+	Collection<E> findBy(Predicate<E> filter);
 	
 
 }

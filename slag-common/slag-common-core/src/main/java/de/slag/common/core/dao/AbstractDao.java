@@ -73,9 +73,18 @@ public abstract class AbstractDao<E extends EntityBean> implements Dao<E> {
 				.map(Optional::get)
 				.collect(Collectors.toList());
 	}
-
+	
+	/**
+	 * use 'findBy(Predicate)' instead
+	 */
+	@Deprecated
 	@Override
 	public Collection<E> findAllBy(Predicate<E> filter) {
+		return findBy(filter);
+	}
+
+	@Override
+	public Collection<E> findBy(Predicate<E> filter) {
 		return findAll().stream()
 				.filter(e -> filter.test(e))
 				.collect(Collectors.toList());
