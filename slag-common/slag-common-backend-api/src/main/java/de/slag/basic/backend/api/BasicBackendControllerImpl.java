@@ -66,7 +66,8 @@ public class BasicBackendControllerImpl implements BasicBackendController {
 
 	@GetMapping(path = "/demo/ok", produces = MediaType.TEXT_PLAIN)
 	public String getOk() {
-		return "ok, " + LocalDateTime.now();
+		final String backendServiceSimpleName = basicBackendService.getClass().getSimpleName();
+		return "ok, " + backendServiceSimpleName + ", " + LocalDateTime.now();
 	}
 
 	@Override
