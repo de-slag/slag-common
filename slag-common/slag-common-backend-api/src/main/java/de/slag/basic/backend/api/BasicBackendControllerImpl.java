@@ -21,11 +21,6 @@ import de.slag.basic.model.ConfigProperty;
 import de.slag.basic.model.EntityDto;
 import de.slag.basic.model.Token;
 
-/**
- * This is a Template for a Spring Boot web application. Copy this template to
- * the maven project.
- *
- */
 @RestController
 public class BasicBackendControllerImpl implements BasicBackendController {
 
