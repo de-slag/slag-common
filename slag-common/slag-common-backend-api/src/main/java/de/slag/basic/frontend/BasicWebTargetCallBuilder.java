@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -27,7 +28,7 @@ public class BasicWebTargetCallBuilder implements Builder<BasicWebTargetCall> {
 	private Object entity;
 
 	private Map<String, String> queryParams = new HashMap<>();
-	
+
 	public BasicWebTargetCallBuilder addQueryParam(String key, String value) {
 		queryParams.put(key, value);
 		return this;
@@ -68,7 +69,9 @@ public class BasicWebTargetCallBuilder implements Builder<BasicWebTargetCall> {
 		Objects.requireNonNull(target, "target not setted");
 		Objects.requireNonNull(endpoint, "endpoint not setted");
 
-		final WebTarget webTarget = addQueryParams(ClientBuilder.newClient().target(target + endpoint));
+		String uri = target + endpoint;
+
+		final WebTarget webTarget = addQueryParams(ClientBuilder.newClient().target(uri));
 
 		return new BasicWebTargetCall() {
 
@@ -87,14 +90,21 @@ public class BasicWebTargetCallBuilder implements Builder<BasicWebTargetCall> {
 			}
 
 			private Response put() {
-				Invocation.Builder request = webTarget.request(acceptedResponseType);
-				return request.put(Entity.entity(entity, requestMediaType));
+				return interceptException(
+						() -> webTarget.request(acceptedResponseType).put(Entity.entity(entity, requestMediaType)));
 			}
 
 			private Response get() {
-				return webTarget.request(acceptedResponseType).get();
+				return interceptException(() -> webTarget.request(acceptedResponseType).get());
 			}
 
+			private Response interceptException(Callable<Response> c) {
+				try {
+					return c.call();
+				} catch (Exception e) {
+					throw new RuntimeException("uri: " + uri, e);
+				}
+			}
 		};
 	}
 
