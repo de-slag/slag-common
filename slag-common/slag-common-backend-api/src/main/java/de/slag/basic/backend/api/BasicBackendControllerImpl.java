@@ -45,9 +45,19 @@ public class BasicBackendControllerImpl implements BasicBackendController {
 	@PutMapping(path = "/configproperty", produces = MediaType.TEXT_PLAIN)
 	public Response putConfigProperty(@RequestParam(required = false) String token,
 			@RequestBody ConfigProperty configProperty) {
-
+		// TODO: assert token
 		final BackendState putConfigProperty = basicBackendService.putConfigProperty(token, configProperty);
 		if (putConfigProperty == BackendState.OK) {
+			return null;
+		}
+		return Response.status(500).build();
+	}
+
+	@PutMapping(path = "/save", produces = MediaType.TEXT_PLAIN)
+	public Response saveEntity(@RequestParam String token, @RequestBody EntityDto entityDto) {
+		// TODO: assert token
+		final BackendState state = basicBackendService.save(entityDto);
+		if(state == BackendState.OK) {
 			return null;
 		}
 		return Response.status(500).build();
