@@ -13,20 +13,53 @@ import de.slag.basic.model.Token;
 
 public class LoginCallBuilder extends AbstractBasicCallBuilder implements Builder<LoginCall> {
 
+	String backendUrl;
+	
+	String user;
+	
+	String password;
+	
+	/**
+	 * use default constructor and 'with...()' methods instead
+	 * @param propertiesSupplier
+	 */
+	@Deprecated
 	public LoginCallBuilder(PropertiesSupplier propertiesSupplier) {
 		super(propertiesSupplier);
+		withPassword(propertiesSupplier.getPassword());
+		withUser(propertiesSupplier.getUser());
+		withBackendUrl(propertiesSupplier.getBackendUrl());
+	}
+	
+	public LoginCallBuilder() {
+		super(null);
+	}
+	
+	public LoginCallBuilder withPassword(String password) {
+		this.password = password;
+		return this;
+	}
+	
+	public LoginCallBuilder withUser(String user) {
+		this.user = user;
+		return this;
+	}
+
+	public LoginCallBuilder withBackendUrl(String backendUrl) {
+		this.backendUrl = backendUrl;
+		return this;
 	}
 
 	public LoginCall build() {
-		final String backendUrl = getPropertiesSupplier().getBackendUrl();
+		backendUrl = getPropertiesSupplier().getBackendUrl();
 		Objects.requireNonNull(backendUrl,
 				String.format("property not setted: '%s'", PropertiesSupplier.FRONTEND_BACKEND_URL));
 		
-		final String user = getPropertiesSupplier().getUser();
+		user = getPropertiesSupplier().getUser();
 		Objects.requireNonNull(user,
 				String.format("property not setted: '%s'", PropertiesSupplier.FRONTEND_USER));
 		
-		final String password = getPropertiesSupplier().getPassword();
+		password = getPropertiesSupplier().getPassword();
 		Objects.requireNonNull(password,
 				String.format("property not setted: '%s'", PropertiesSupplier.FRONTEND_PASSWORD));
 

@@ -11,9 +11,9 @@ import de.slag.basic.frontend.call.DemoCall;
 
 public class DemoCallBuilder implements Builder<DemoCall> {
 
-	private String target;
+	private String target = "http://localhost:18080/invest-backend";
 
-	private String endpoint = "demo/ok";
+	private String endpoint = "demo/notok";
 
 	private HttpMethod httpMethod = HttpMethod.GET;
 

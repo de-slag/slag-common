@@ -16,26 +16,37 @@ import de.slag.basic.model.ConfigProperty;
 
 public class ConfigCallBuilder extends AbstractBasicCallBuilder implements Builder<ConfigCall> {
 
+	private String backendUrl;
+	private String currentToken;
+	private Properties properties;
+
 	public ConfigCallBuilder(PropertiesSupplier propertiesSupplier) {
 		super(propertiesSupplier);
+		backendUrl = getPropertiesSupplier().getBackendUrl();
+		currentToken = getPropertiesSupplier().getCurrentToken();
+		properties = getPropertiesSupplier().get();		
 	}
 
 	@Override
 	public ConfigCall build() {
-		final String backendUrl = getPropertiesSupplier().getBackendUrl();
-		final String currentToken = getPropertiesSupplier().getCurrentToken();
+		
 
-		final Properties properties = getPropertiesSupplier().get();
-
-		final List<BasicWebTargetCall> calls = properties.keySet().stream().filter(key -> key instanceof String)
-				.map(key -> (String) key).filter(key -> !key.startsWith("frontend.")).map(key -> {
+		final List<BasicWebTargetCall> calls = properties.keySet().stream()
+				.filter(key -> key instanceof String)
+				.map(key -> (String) key)
+				.filter(key -> !key.startsWith("frontend."))
+				.map(key -> {
 
 					final ConfigProperty configProperty = new ConfigProperty();
 					configProperty.setKey(key);
 					configProperty.setValue(properties.getProperty(key));
 
-					BasicWebTargetCall build = new BasicWebTargetCallBuilder().withTarget(backendUrl).withEndpoint("/configproperty")
-							.withMethod(HttpMethod.PUT).withEntity(configProperty).withToken(currentToken).build();
+					BasicWebTargetCall build = new BasicWebTargetCallBuilder()
+							.withTarget(backendUrl)
+							.withEndpoint("/configproperty")
+							.withMethod(HttpMethod.PUT)
+							.withEntity(configProperty)
+							.withToken(currentToken).build();
 					return build;
 				}).collect(Collectors.toList());
 
