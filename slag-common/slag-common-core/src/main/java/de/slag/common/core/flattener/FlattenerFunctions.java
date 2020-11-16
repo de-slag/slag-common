@@ -67,7 +67,13 @@ public class FlattenerFunctions {
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new BaseException(e);
 		}
-		return LowerFunctionUtils.convertToString(returnValue);
+		try {
+			return LowerFunctionUtils.convertToString(returnValue);
+		} catch (Exception e) {
+			final String msg = String.format("error getting '%s' from class ''", attributeName,
+					object.getClass().getName());
+			throw new BaseException(msg, e);
+		}
 
 	};
 

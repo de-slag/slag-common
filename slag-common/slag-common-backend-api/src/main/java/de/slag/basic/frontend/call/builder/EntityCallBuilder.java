@@ -18,6 +18,20 @@ public class EntityCallBuilder implements Builder<EntityCall> {
 
 	private Long id;
 
+	private String currentToken;
+
+	private String backendUrl;
+
+	public EntityCallBuilder withBackendUrl(String backendUrl) {
+		this.backendUrl = backendUrl;
+		return this;
+	}
+
+	public EntityCallBuilder withCurrentToken(String currentToken) {
+		this.currentToken = currentToken;
+		return this;
+	}
+
 	public EntityCallBuilder withType(String type) {
 		this.type = type;
 		return this;
@@ -31,15 +45,18 @@ public class EntityCallBuilder implements Builder<EntityCall> {
 	public EntityCallBuilder(PropertiesSupplier propertiesSupplier) {
 		super();
 		this.propertiesSupplier = propertiesSupplier;
+		currentToken = propertiesSupplier.getCurrentToken();
+		backendUrl = propertiesSupplier.getBackendUrl();
+	}
+
+	public EntityCallBuilder() {
+		this.propertiesSupplier = null;
 	}
 
 	@Override
 	public EntityCall build() {
-		final String currentToken = propertiesSupplier.getCurrentToken();
-		final String backendUrl = propertiesSupplier.getBackendUrl();
 
-		final BasicWebTargetCall webTargetCall = new BasicWebTargetCallBuilder()
-				.withEndpoint("/entity")
+		final BasicWebTargetCall webTargetCall = new BasicWebTargetCallBuilder().withEndpoint("/entity")
 				.withTarget(backendUrl)
 				.withAcceptedResponseType(MediaType.APPLICATION_JSON)
 				.withToken(currentToken)

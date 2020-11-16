@@ -1,8 +1,12 @@
 package de.slag.common.core.flattener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 
 import de.slag.common.base.BaseException;
+import de.slag.common.core.DefaultDateFormat;
 
 class LowerFunctionUtils {
 
@@ -38,6 +42,11 @@ class LowerFunctionUtils {
 		if (Long.class.isAssignableFrom(returnValueType)) {
 			return Long.toString((Long) returnValue);
 		}
+
+		if (Date.class.isAssignableFrom(returnValueType)) {
+			return new SimpleDateFormat(DefaultDateFormat.ISO_8601).format(returnValue);
+		}
+
 		throw new BaseException("no supported type: " + returnValueType.getName());
 	}
 
