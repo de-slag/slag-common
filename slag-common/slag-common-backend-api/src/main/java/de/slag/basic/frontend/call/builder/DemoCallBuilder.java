@@ -13,7 +13,7 @@ public class DemoCallBuilder implements Builder<DemoCall> {
 
 	private String target = "http://localhost:18080/invest-backend";
 
-	private String endpoint = "demo/notok";
+	private String endpoint = "demo/ok";
 
 	private HttpMethod httpMethod = HttpMethod.GET;
 
@@ -46,6 +46,7 @@ public class DemoCallBuilder implements Builder<DemoCall> {
 			@Override
 			public String call() throws Exception {
 				final Response call = targetCall.call();
+				CallBuilderUtils.assertNoError(call);
 				return call.readEntity(String.class);
 			}
 		};

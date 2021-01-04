@@ -51,15 +51,15 @@ public class LoginCallBuilder extends AbstractBasicCallBuilder implements Builde
 	}
 
 	public LoginCall build() {
-		backendUrl = getPropertiesSupplier().getBackendUrl();
+//		backendUrl = getPropertiesSupplier().getBackendUrl();
 		Objects.requireNonNull(backendUrl,
 				String.format("property not setted: '%s'", PropertiesSupplier.FRONTEND_BACKEND_URL));
 		
-		user = getPropertiesSupplier().getUser();
+//		user = getPropertiesSupplier().getUser();
 		Objects.requireNonNull(user,
 				String.format("property not setted: '%s'", PropertiesSupplier.FRONTEND_USER));
 		
-		password = getPropertiesSupplier().getPassword();
+//		password = getPropertiesSupplier().getPassword();
 		Objects.requireNonNull(password,
 				String.format("property not setted: '%s'", PropertiesSupplier.FRONTEND_PASSWORD));
 

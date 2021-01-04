@@ -68,6 +68,9 @@ public class BasicWebTargetCallBuilder implements Builder<BasicWebTargetCall> {
 
 		Objects.requireNonNull(target, "target not setted");
 		Objects.requireNonNull(endpoint, "endpoint not setted");
+		if (!target.endsWith("/")) {
+			throw new RuntimeException("target does not ends with '/'");
+		}
 
 		String uri = target + endpoint;
 

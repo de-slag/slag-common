@@ -1,5 +1,6 @@
 package de.slag.common.core.eop;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,13 +25,17 @@ public class EopEntity {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public String put(String key, String value) {
 		return attributes.put(key, value);
 	}
-	
+
 	public String get(String key) {
 		return attributes.get(key);
+	}
+
+	public Collection<String> getAttributeKeys() {
+		return attributes.keySet();
 	}
 
 	@Override

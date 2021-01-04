@@ -1,9 +1,9 @@
 package de.slag.basic.backend.api;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
-
-import org.apache.commons.logging.LogFactory;
+import java.util.Optional;
 
 import de.slag.basic.model.ConfigProperty;
 import de.slag.basic.model.EntityDto;
@@ -11,28 +11,25 @@ import de.slag.basic.model.Token;
 
 public interface BasicBackendService {
 
-	Token getLogin(String username, String password);
-
-	BackendState putConfigProperty(String token, ConfigProperty configProperty);
-
-	String runDefault(String token);
-
-	public enum BackendState {
-		OK,
-
-		NOT_OK
+	Token getLogin(String username, String password) throws Exception;
+	
+	default Optional<Object> authenticate(Token token) throws Exception {
+		return Optional.empty();
 	}
 
-	default Collection<String> getDataTypes() {
+	BasicBackendServiceReturnValue putConfigProperty(String token, ConfigProperty configProperty) throws Exception;
+
+	String runDefault(String token) throws Exception;
+
+	default Collection<String> getDataTypes() throws Exception {
 		return Collections.emptyList();
 	}
 
-	default EntityDto getEntity(String type, Long id) {
+	default EntityDto getEntity(String type, Long id) throws Exception {
 		return null;
 	}
 
-	default BackendState save(EntityDto entityDto) {
-		LogFactory.getLog(BasicBackendService.class).error("not implemented yet");
-		return BackendState.NOT_OK;
+	default BasicBackendServiceReturnValue save(EntityDto entityDto) throws Exception {
+		throw new RuntimeException("not implemented yet");
 	}
 }

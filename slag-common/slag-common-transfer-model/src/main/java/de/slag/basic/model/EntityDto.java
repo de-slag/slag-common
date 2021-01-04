@@ -12,7 +12,7 @@ public class EntityDto {
 
 	private Long id;
 
-	private ArrayList<String> properties;
+	private ArrayList<String> properties = new ArrayList<>();
 
 	public String getType() {
 		return type;

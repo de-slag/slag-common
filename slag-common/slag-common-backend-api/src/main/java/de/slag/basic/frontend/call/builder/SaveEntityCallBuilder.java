@@ -45,10 +45,8 @@ public class SaveEntityCallBuilder implements Builder<SaveEntityCall> {
 			@Override
 			public String call() throws Exception {
 				final Response call = wtCall.call();
-				if (200 != call.getStatus()) {
-					throw new RuntimeException("something went wrong");
-				}
-				return "ok";
+				CallBuilderUtils.assertNoError(call);
+				return call.readEntity(String.class);
 			}
 		};
 
