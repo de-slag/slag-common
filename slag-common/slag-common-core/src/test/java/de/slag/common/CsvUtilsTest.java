@@ -1,6 +1,8 @@
 package de.slag.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
@@ -12,12 +14,27 @@ import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Test;
 
 import de.slag.common.util.CsvUtils;
+import de.slag.common.util.CsvUtilsOption;
 import de.slag.common.util.ResourceUtils;
 
 public class CsvUtilsTest {
 
 	private static final String CSV_UTILS_TEST_CSV = "csv-utils-test.csv";
+
 	private Collection<String> expected = Arrays.asList("X-AXIS", "Y-AXIS", "Z-AXIS");
+
+	@Test
+	public void readRecordsNoHeaderIgnoreEmptyLines() {
+		final String csvFileName = getAbsolutePathOfResource("csv-utils-test-ends-with-empty-line.csv");
+		Collection<CSVRecord> records = CsvUtils.readRecords(csvFileName);
+		assertNotNull(records);
+		assertEquals(3, records.size());
+		records.forEach(rec -> {
+			rec.forEach(field -> {
+				assertFalse(expected.contains(field));
+			});
+		});
+	}
 
 	@Test
 	public void testGetHeader() throws FileNotFoundException {
@@ -32,7 +49,7 @@ public class CsvUtilsTest {
 			assertTrue(expected.contains(columnHeader));
 		}
 	}
-	
+
 	@Test
 	public void getRecordsTest() throws IOException {
 		String absolutePathOfResource = getAbsolutePathOfResource(CSV_UTILS_TEST_CSV);

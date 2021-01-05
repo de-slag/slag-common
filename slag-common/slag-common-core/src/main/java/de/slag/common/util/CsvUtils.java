@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -23,6 +24,10 @@ import org.apache.commons.logging.LogFactory;
 
 import de.slag.common.base.BaseException;
 
+/**
+ * @author sebastian
+ *
+ */
 public class CsvUtils {
 
 	private static final Log LOG = LogFactory.getLog(CsvUtils.class);
@@ -34,7 +39,8 @@ public class CsvUtils {
 	};
 
 	public static Collection<Collection<String>> toLines(Collection<String> header, Collection<CSVRecord> records) {
-		return records.stream().map(r -> header.stream().map(h -> r.get(h)).collect(Collectors.toList()))
+		return records.stream()
+				.map(r -> header.stream().map(h -> r.get(h)).collect(Collectors.toList()))
 				.collect(Collectors.toList());
 	}
 
@@ -66,7 +72,8 @@ public class CsvUtils {
 			throws IOException {
 
 		final BufferedWriter writer = Files.newBufferedWriter(path);
-		final CSVFormat format = CSVFormat.newFormat(DEFAULT_DELIMITER).withHeader(header.toArray(new String[0]))
+		final CSVFormat format = CSVFormat.newFormat(DEFAULT_DELIMITER)
+				.withHeader(header.toArray(new String[0]))
 				.withRecordSeparator("\r\n");
 		final CSVPrinter csvPrinter = new CSVPrinter(writer, format);
 		for (Collection<String> collection : lines) {
@@ -119,8 +126,11 @@ public class CsvUtils {
 		if (header != null && header.length > 0) {
 			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withIgnoreEmptyLines().withHeader(header);
 		} else {
-			format = CSVFormat.newFormat(DEFAULT_DELIMITER).withIgnoreEmptyLines().withFirstRecordAsHeader()
-					.withIgnoreHeaderCase().withTrim();
+			format = CSVFormat.newFormat(DEFAULT_DELIMITER)
+					.withIgnoreEmptyLines()
+					.withFirstRecordAsHeader()
+					.withIgnoreHeaderCase()
+					.withTrim();
 		}
 
 		CSVParser parse;
@@ -137,6 +147,43 @@ public class CsvUtils {
 		}
 		validate(records, header);
 		return records;
+	}
+
+	public static Collection<CSVRecord> readRecords(final String filename, CsvUtilsOption... options) {
+		final List<CsvUtilsOption> optionsList = Arrays.asList(options);
+
+		final Path path = Paths.get(filename);
+		if (!Files.exists(path)) {
+			throw new BaseException("file not exists: " + filename);
+		}
+
+		final BufferedReader in;
+		try {
+			in = Files.newBufferedReader(path);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+		CSVFormat format = CSVFormat.newFormat(DEFAULT_DELIMITER).withIgnoreHeaderCase().withTrim();
+
+		if (optionsList.contains(CsvUtilsOption.IGNORE_EMPTY_LINES)) {
+			format = format.withIgnoreEmptyLines();
+		}
+		if (optionsList.contains(CsvUtilsOption.NO_HEADER)) {
+			format = format.withFirstRecordAsHeader();
+		}
+
+		final CSVParser parse;
+		try {
+			parse = format.parse(in);
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
+
+		try {
+			return parse.getRecords();
+		} catch (IOException e) {
+			throw new BaseException(e);
+		}
 	}
 
 	public static void validate(final List<CSVRecord> records, String... header) {
@@ -197,5 +244,16 @@ public class CsvUtils {
 		} catch (IOException e) {
 			throw new BaseException(e);
 		}
+	}
+
+	/**
+	 * @param csvFileName
+	 * @return
+	 * 
+	 *         with default Options: {@link CsvUtilsOption.IGNORE_EMPTY_LINES},
+	 *         {@link CsvUtilsOption.NO_HEADER}
+	 */
+	public static Collection<CSVRecord> readRecords(String csvFileName) {
+		return readRecords(csvFileName, CsvUtilsOption.IGNORE_EMPTY_LINES, CsvUtilsOption.NO_HEADER);
 	}
 }
