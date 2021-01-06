@@ -22,7 +22,7 @@ public class CurrencyUtils {
 	private static final String EUR = "EUR";
 
 	private static final double ZERO = Double.valueOf(0);
-	
+
 	private static final Map<CurrencyUnit, CurrencyConversion> CONVERSIONS = new HashMap<>();
 
 	private static final Map<CurrencyUnit, LocalDateTime> LAST_UPDATE = new HashMap<>();
@@ -37,6 +37,10 @@ public class CurrencyUtils {
 
 	public static MonetaryAmount newAmount(Number number, CurrencyUnit currency) {
 		return Monetary.getDefaultAmountFactory().setCurrency(currency).setNumber(number).create();
+	}
+
+	public static MonetaryAmount newAmount(Number value) {
+		return newAmount(value, defaultCurrency());
 	}
 
 	public static CurrencyUnit defaultCurrency() {
@@ -109,6 +113,10 @@ public class CurrencyUtils {
 		final CurrencyUnit currency = currency(split[0]);
 		final Double valueOf = Double.valueOf(split[1]);
 		return newAmount(valueOf, currency);
+	}
+
+	public static MonetaryAmount mutiply(MonetaryAmount amount, double multiplicant) {
+		return amount.multiply(multiplicant);
 	}
 
 }
