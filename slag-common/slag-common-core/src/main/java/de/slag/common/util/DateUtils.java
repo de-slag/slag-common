@@ -102,4 +102,14 @@ public class DateUtils {
 		return interim.plusMonths(1).minusDays(date.getDayOfMonth());
 	}
 
+	/**
+	 * @return if testand equal or before reference
+	 */
+	public static boolean isEqualOrBefore(LocalDate reference, LocalDate testand) {
+		if (testand.isBefore(reference)) {
+			return true;
+		}
+		return testand.equals(reference);
+	}
+
 }
