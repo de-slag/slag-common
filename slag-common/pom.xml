@@ -15,7 +15,8 @@
 		<module>slag-common-test-support</module>
 		<module>slag-common-backend-api</module>
 		<module>slag-common-transfer-model</module>
-
+		<module>slag-common-dbtools</module>
+	
 	</modules>
 
 	<distributionManagement>
