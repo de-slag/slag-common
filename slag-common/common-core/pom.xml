@@ -7,7 +7,7 @@
 		<artifactId>slag-common</artifactId>
 		<version>0.5.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>slag-common-core</artifactId>
+	<artifactId>common-core</artifactId>
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -16,13 +16,13 @@
 
 		<dependency>
 			<groupId>de.slag.common</groupId>
-			<artifactId>slag-common-model</artifactId>
+			<artifactId>common-model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>de.slag.common</groupId>
-			<artifactId>slag-common-base</artifactId>
+			<artifactId>common-base</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -84,12 +84,6 @@
 
 		<!-- <dependency> <groupId>de.slag.common</groupId> <artifactId>slag-common-context</artifactId> 
 			<version>${project.version}</version> </dependency> -->
-
-		<dependency>
-			<groupId>de.slag.common</groupId>
-			<artifactId>slag-common-model</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>javax.annotation</groupId>
