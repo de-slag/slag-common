@@ -15,6 +15,7 @@
 		<module>common-test-support</module>
 		<module>universal-backend-api</module>
 		<module>common-transfer-model</module>
+		<module>common-data</module>
 	</modules>
 
 	<distributionManagement>
