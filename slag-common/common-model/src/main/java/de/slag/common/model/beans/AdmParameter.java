@@ -9,9 +9,9 @@ import de.slag.common.model.EntityBean;
 public class AdmParameter extends EntityBean {
 	
 	@Column(length = 1000)
-	private String key;
+	private String configKey;
 	
 	@Column(length = 4000)
-	private String value;
+	private String configValue;
 
 }
