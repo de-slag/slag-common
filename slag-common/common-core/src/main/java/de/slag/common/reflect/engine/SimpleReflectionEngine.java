@@ -56,7 +56,7 @@ public class SimpleReflectionEngine {
 				.orElseThrow(() -> new BaseException("setter not found for: " + attributeName + " in type: " + type));
 	}
 
-	private Map<String, Object> getValues(Object o, Collection<String> ignoredAttributes) {
+	public Map<String, Object> getValues(Object o, Collection<String> ignoredAttributes) {
 
 		final Collection<String> ignoredAttributes0 = new ArrayList<String>(
 				ignoredAttributes.stream().map(ignAtt -> ignAtt.toUpperCase()).collect(Collectors.toList()));

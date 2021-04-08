@@ -1,11 +1,12 @@
 package de.slag.common.model.beans;
 
-import java.util.Arrays;
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 import de.slag.common.model.EntityBean;
 
@@ -14,10 +15,9 @@ public class XiData extends EntityBean {
 
 	@Column
 	private String type;
-
-	@Lob
-	@Column
-	private String value;
+	
+	@OneToMany(mappedBy = "xiData", cascade = CascadeType.ALL)
+	private List<XiDataValue> values = new ArrayList<>();
 
 	public String getType() {
 		return type;
@@ -27,28 +27,7 @@ public class XiData extends EntityBean {
 		this.type = type;
 	}
 
-	public String getValue() {
-		return value;
+	public List<XiDataValue> getValues() {
+		return values;
 	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public Properties toProperties() {
-		final Properties properties = new Properties();
-		Arrays.stream(value.split(";")).forEach(keyAndValue -> {
-			String[] split = keyAndValue.split("=");
-			final String key = split[0];
-			final String value = split[1];
-			properties.setProperty(key, value);
-		});
-		return properties;
-	}
-
-	@Override
-	public String toString() {
-		return "XiData [type=" + type + ", value=" + value + "]";
-	}
-
 }

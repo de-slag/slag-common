@@ -16,6 +16,7 @@
 		<module>universal-backend-api</module>
 		<module>common-transfer-model</module>
 		<module>common-data</module>
+		<module>common-logic</module>
 	</modules>
 
 	<distributionManagement>

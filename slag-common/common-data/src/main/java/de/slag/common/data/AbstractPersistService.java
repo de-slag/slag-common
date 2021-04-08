@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -23,11 +25,9 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	@Resource
 	private EntityManager entityManager;
 
-	protected EntityManager getEntityManager() {
-		return entityManager;
-	}
-
 	private Field validUntilPersistEntityField;
+
+	protected abstract Class<E> getType();
 
 	@PostConstruct
 	public void init() {
@@ -36,6 +36,10 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 		} catch (NoSuchFieldException | SecurityException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	protected EntityManager getEntityManager() {
+		return entityManager;
 	}
 
 	@Override
@@ -92,6 +96,27 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 		return typedQuery.getResultList();
 	}
 
-	protected abstract Class<E> getType();
+	@Override
+	public Collection<E> findBy(Predicate<E> filter) {
+		return findAllIds().stream().map(id -> loadById(id)).filter(o -> o.isPresent()).map(o -> o.get()).filter(filter)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Optional<E> loadBy(Predicate<E> filter) {
+		Collection<E> findBy = findBy(filter);
+		if (findBy.isEmpty()) {
+			return Optional.empty();
+		}
+		if (findBy.size() > 1) {
+			throw new RuntimeException("more than one result");
+		}
+		return findBy.stream().findAny();
+	}
+
+	@Override
+	public Collection<E> findAll() {
+		return findAllIds().stream().map(id -> loadById(id)).map(o -> o.get()).collect(Collectors.toList());
+	}
 
 }
