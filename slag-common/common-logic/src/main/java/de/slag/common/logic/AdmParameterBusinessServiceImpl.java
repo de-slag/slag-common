@@ -28,11 +28,8 @@ public class AdmParameterBusinessServiceImpl extends AbstractBusinessService<Adm
 	}
 
 	@Override
-	public AdmParameter loadByKey(String key) {
-		final Optional<AdmParameter> parameterOptional = admParameterPersistService
-				.loadBy(admParameter -> key.equals(admParameter.getConfigKey()));
-
-		return parameterOptional.orElseThrow(() -> new RuntimeException("parameter not found: " + key));
+	public Optional<AdmParameter> loadByKey(String key) {
+		return admParameterPersistService.loadBy(admParameter -> key.equals(admParameter.getConfigKey()));
 	}
 
 }

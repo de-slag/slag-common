@@ -17,7 +17,7 @@ import de.slag.common.model.beans.XiData;
 import de.slag.common.model.beans.XiDataValue;
 
 @Service
-public class XiBusinessServiceImpl extends AbstractBusinessService<XiData> implements XiBusinessService {
+public class XiDataBusinessServiceImpl extends AbstractBusinessService<XiData> implements XiDataBusinessService {
 
 	@Resource
 	private XiDataPersistService xiDataPersistService;
