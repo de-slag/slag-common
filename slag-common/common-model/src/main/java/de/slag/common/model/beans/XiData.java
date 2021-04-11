@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import de.slag.common.model.EntityBean;
@@ -17,7 +18,7 @@ public class XiData extends EntityBean {
 	@Column
 	private String type;
 
-	@OneToMany(mappedBy = "xiData", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "xiData", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<XiDataValue> values = new ArrayList<>();
 
 	public String getType() {

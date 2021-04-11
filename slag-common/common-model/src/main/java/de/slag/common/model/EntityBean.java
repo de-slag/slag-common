@@ -13,7 +13,7 @@ import de.slag.common.ModelConstants;
 
 @MappedSuperclass
 public abstract class EntityBean {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(updatable = false, nullable = false)
@@ -24,6 +24,9 @@ public abstract class EntityBean {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date validUntil = new Date(ModelConstants.DATE_9999_12_31_23_59_59);
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt = new Date();
 
 	public Long getId() {
 		return id;
@@ -43,6 +46,7 @@ public abstract class EntityBean {
 
 	/**
 	 * only for deletion
+	 * 
 	 * @param validUntil
 	 */
 	void setValidUntil(Date validUntil) {
@@ -76,6 +80,10 @@ public abstract class EntityBean {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
 }

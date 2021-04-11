@@ -18,14 +18,21 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import de.slag.common.model.EntityBean;
 
 public abstract class AbstractPersistService<E extends EntityBean> implements PersistService<E> {
+
+	private static final Log LOG = LogFactory.getLog(AbstractPersistService.class);
 
 	@Resource
 	private EntityManager entityManager;
 
 	private Field validUntilPersistEntityField;
+
+	private Field updatedAtPersistEntityField;
 
 	protected abstract Class<E> getType();
 
@@ -33,6 +40,7 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	public void init() {
 		try {
 			validUntilPersistEntityField = EntityBean.class.getDeclaredField("validUntil");
+			updatedAtPersistEntityField = EntityBean.class.getDeclaredField("updatedAt");
 		} catch (NoSuchFieldException | SecurityException e) {
 			throw new RuntimeException(e);
 		}
@@ -45,7 +53,19 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	@Override
 	@Transactional
 	public void save(E e) {
-		entityManager.persist(e);
+//		updatedAtPersistEntityField.setAccessible(true);
+//		try {
+//			updatedAtPersistEntityField.set(e, new Date());
+//		} catch (IllegalArgumentException | IllegalAccessException e1) {
+//			throw new RuntimeException(e1);
+//		}
+//		updatedAtPersistEntityField.setAccessible(false);
+		
+		if (e.getId() != null) {
+			entityManager.merge(e);
+		} else {
+			entityManager.persist(e);
+		}
 	}
 
 	@Override
@@ -65,14 +85,15 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	@Transactional
 	public Optional<E> loadById(Long id) {
 		final Class<E> type = getType();
-		final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		final CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
 		final CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(type);
 		final Root<E> root = criteriaQuery.from(type);
 
 		final ParameterExpression<Long> parameter = criteriaBuilder.parameter(Long.class);
-		criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), parameter));
+		final javax.persistence.criteria.Predicate equal = criteriaBuilder.equal(root.get("id"), parameter);
+		criteriaQuery.select(root).where(equal);
 
-		final TypedQuery<E> typedQuery = entityManager.createQuery(criteriaQuery);
+		final TypedQuery<E> typedQuery = createQuery(criteriaQuery);
 		typedQuery.setParameter(parameter, id);
 		final List<E> resultList = typedQuery.getResultList();
 
@@ -86,24 +107,35 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 		return Optional.of(resultList.get(0));
 	}
 
+	protected TypedQuery<E> createQuery(final CriteriaQuery<E> criteriaQuery) {
+		return entityManager.createQuery(criteriaQuery);
+	}
+
+	protected CriteriaBuilder getCriteriaBuilder() {
+		return entityManager.getCriteriaBuilder();
+	}
+
 	@Override
 	@Transactional
 	public Collection<Long> findAllIds() {
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
 		CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+		Root<E> root = criteriaQuery.from(getType());
 
+		criteriaQuery.select(root.get("id"));
 		TypedQuery<Long> typedQuery = entityManager.createQuery(criteriaQuery);
 		return typedQuery.getResultList();
 	}
 
 	@Override
 	public Collection<E> findBy(Predicate<E> filter) {
-		return findAllIds().stream().map(id -> loadById(id)).filter(o -> o.isPresent()).map(o -> o.get()).filter(filter)
-				.collect(Collectors.toList());
+		return findAllIds().parallelStream().map(id -> loadById(id)).filter(o -> o.isPresent()).map(o -> o.get())
+				.filter(filter).collect(Collectors.toList());
 	}
 
 	@Override
 	public Optional<E> loadBy(Predicate<E> filter) {
+		final long start = System.currentTimeMillis();
 		Collection<E> findBy = findBy(filter);
 		if (findBy.isEmpty()) {
 			return Optional.empty();
@@ -111,7 +143,10 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 		if (findBy.size() > 1) {
 			throw new RuntimeException("more than one result");
 		}
-		return findBy.stream().findAny();
+		final Optional<E> findAny = findBy.stream().findAny();
+		final long end = System.currentTimeMillis();
+		LOG.info("load by predicate took (ms): " + (end - start));
+		return findAny;
 	}
 
 	@Override

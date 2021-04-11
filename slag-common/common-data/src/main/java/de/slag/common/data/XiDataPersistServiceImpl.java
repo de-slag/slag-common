@@ -1,5 +1,7 @@
 package de.slag.common.data;
 
+import java.util.Collection;
+
 import org.springframework.stereotype.Service;
 
 import de.slag.common.model.beans.XiData;
@@ -12,4 +14,8 @@ public class XiDataPersistServiceImpl extends AbstractPersistService<XiData> imp
 		return XiData.class;
 	}
 
+	@Override
+	public Collection<XiData> findBy(String attribute, String value) {
+		return findBy(xiData -> value.equals(xiData.getValue(attribute)));
+	}
 }
