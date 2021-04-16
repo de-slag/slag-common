@@ -1,6 +1,5 @@
 package de.slag.common.data;
 
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.slag.common.model.EntityBean;
+import de.slag.common.model.EntityBeanUpdatedAtSetter;
+import de.slag.common.model.EntityBeanValidUntilSetter;
 
 public abstract class AbstractPersistService<E extends EntityBean> implements PersistService<E> {
 
@@ -30,17 +31,13 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	@Resource
 	private EntityManager entityManager;
 
-	private Field validUntilPersistEntityField;
-
-	private Field updatedAtPersistEntityField;
-
 	protected abstract Class<E> getType();
 
 	@PostConstruct
 	public void init() {
 		try {
-			validUntilPersistEntityField = EntityBean.class.getDeclaredField("validUntil");
-			updatedAtPersistEntityField = EntityBean.class.getDeclaredField("updatedAt");
+			EntityBean.class.getDeclaredField("validUntil");
+			EntityBean.class.getDeclaredField("updatedAt");
 		} catch (NoSuchFieldException | SecurityException e) {
 			throw new RuntimeException(e);
 		}
@@ -53,14 +50,7 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	@Override
 	@Transactional
 	public void save(E e) {
-//		updatedAtPersistEntityField.setAccessible(true);
-//		try {
-//			updatedAtPersistEntityField.set(e, new Date());
-//		} catch (IllegalArgumentException | IllegalAccessException e1) {
-//			throw new RuntimeException(e1);
-//		}
-//		updatedAtPersistEntityField.setAccessible(false);
-		
+		new EntityBeanUpdatedAtSetter().accept(e, new Date());
 		if (e.getId() != null) {
 			entityManager.merge(e);
 		} else {
@@ -71,13 +61,7 @@ public abstract class AbstractPersistService<E extends EntityBean> implements Pe
 	@Override
 	@Transactional
 	public void delete(E e) {
-		validUntilPersistEntityField.setAccessible(true);
-		try {
-			validUntilPersistEntityField.set(e, new Date());
-		} catch (IllegalArgumentException | IllegalAccessException e1) {
-			throw new RuntimeException(e1);
-		}
-		validUntilPersistEntityField.setAccessible(false);
+		new EntityBeanValidUntilSetter().accept(e, new Date());
 		save(e);
 	}
 
