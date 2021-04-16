@@ -33,7 +33,7 @@ public abstract class EntityBean {
 	}
 
 	void setId(Long id) {
-		// this.id = id;
+		this.id = id;
 	}
 
 	public Date getCreatedAt() {
@@ -84,6 +84,10 @@ public abstract class EntityBean {
 
 	public Date getUpdatedAt() {
 		return updatedAt;
+	}
+
+	void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }
