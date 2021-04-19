@@ -1,6 +1,8 @@
 package de.slag.common.util;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -19,7 +21,9 @@ import org.junit.jupiter.api.Test;
 
 public class DateUtilsTest {
 
-	private static final Date DATE_2010_01_01_00_00 = new Date(1262300400000L);
+	private static final long DATE_2010_01_01_00_00_MILLIS = 1262300400000L;
+
+	private static final Date DATE_2010_01_01_00_00 = new Date(DATE_2010_01_01_00_00_MILLIS);
 
 	private static final Long TOLERANCE_IN_MS = 999L;
 
@@ -48,6 +52,7 @@ public class DateUtilsTest {
 		final Calendar instance = Calendar.getInstance();
 		instance.setTimeInMillis(0);
 		final Calendar calendar = DateUtils.toCalendar(new Date(0));
+		assertNotNull(calendar);
 
 	}
 
@@ -64,11 +69,24 @@ public class DateUtilsTest {
 		assertThat(DATE_2010_01_01_00_00, Matchers.is(date));
 	}
 
-	@Disabled
 	@Test
 	public void testToLocalDate() {
+		final int minutes5 = 60 * 1000 * 5;
+		final int hours23 = 3600 * 1000 * 23;
+		long date_2010_01_01_00_05_millis = DATE_2010_01_01_00_00_MILLIS + minutes5;
+		long date_2010_01_01_23_00_millis = DATE_2010_01_01_00_00_MILLIS + hours23;
 
-		assertTrue(false, "not implemented");
+		final Date smallDifferentDate = new Date(date_2010_01_01_00_05_millis);
+		final Date bigDifferentDate = new Date(date_2010_01_01_23_00_millis);
+		final Date defaultDate = new Date(DATE_2010_01_01_00_00_MILLIS);
+
+		final LocalDate defaultLocalDate = DateUtils.toLocalDate(defaultDate);
+		final LocalDate smallDifferentLocalDate = DateUtils.toLocalDate(smallDifferentDate);
+		final LocalDate bigDifferentLocalDate = DateUtils.toLocalDate(bigDifferentDate);
+
+		assertEquals(defaultLocalDate, smallDifferentLocalDate);
+		assertEquals(defaultLocalDate, bigDifferentLocalDate);
+
 	}
 
 	@Disabled
