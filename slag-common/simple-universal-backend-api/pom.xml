@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.slag.common</groupId>
 		<artifactId>slag-common</artifactId>
-		<version>0.6.0-SNAPSHOT</version>
+		<version>0.6.0</version>
 	</parent>
 	<artifactId>simple-universal-backend-api</artifactId>
 	<properties>
