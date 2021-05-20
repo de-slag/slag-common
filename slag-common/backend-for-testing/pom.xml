@@ -18,6 +18,9 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+	<build>
+		<finalName>backend-for-testing</finalName>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>de.slag.common</groupId>
