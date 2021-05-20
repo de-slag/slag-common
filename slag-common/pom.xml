@@ -54,7 +54,7 @@
 		<commons-cli.version>1.4</commons-cli.version>
 		<h2.version>1.4.199</h2.version>
 		<hamcrest.version>1.3</hamcrest.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<junit.jupiter.version>5.3.1</junit.jupiter.version>
 		<junit.jupiter.plattform.runner.version>1.2.0</junit.jupiter.plattform.runner.version>
 		<javax.annotation.version>1.3.2</javax.annotation.version>
